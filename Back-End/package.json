@@ -5,6 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "start:dev": "nodemon server.js",
+    "db:create": "sequelize db:create",
+    "db:migrate": "sequelize db:migrate",
+    "db:rollback": "sequelize db:migrate:undo:all",
+    "db:seed": "sequelize db:seed:all",
+    "seed:create": "sequelize seed:create",
+    "table:create": "sequelize model:create",
+    "migrate:generate": "sequelize migrate:generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,6 +21,7 @@
     "express": "^4.18.2",
     "nodemon": "^3.0.1",
     "pg": "^8.11.3",
-    "sequelize": "^6.34.0"
+    "sequelize": "^6.34.0",
+    "sequelize-cli": "^6.6.2"
   }
 }
