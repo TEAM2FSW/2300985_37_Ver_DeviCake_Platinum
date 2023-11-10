@@ -8,6 +8,7 @@ const backgroundImageUrl = 'https://images.unsplash.com/photo-1622090860720-c4a7
 export default function Form({ onToggleForm }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [repassword, setRepassword] = useState('');
 
   const notAMemberSectionStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
@@ -29,10 +30,15 @@ export default function Form({ onToggleForm }) {
     setPassword(e.target.value);
   };
 
+  const handleRepasswordChange = (e) => {
+    setRepassword(e.target.value);
+  };
+
   const handleSignIn = () => {
     // Add your logic to handle sign-in using email and password
     console.log('Email:', email);
     console.log('Password:', password);
+    console.log('Repassword:', repassword);
 
     // Toggle to sign-up form after sign-in logic (you can adjust the delay)
     setTimeout(() => {
@@ -87,6 +93,18 @@ export default function Form({ onToggleForm }) {
                   onChange={handlePasswordChange}
                 />
               </div>
+              <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
+                <MdLockOutline className="text-gray-400 m-2" />
+                <input
+                  required
+                  type="password"
+                  name="repassword"
+                  placeholder="Repassword"
+                  className="bg-gray-100 outline-none text-sm flex-1"
+                  value={repassword}
+                  onChange={handleRepasswordChange}
+                />
+              </div>
               <div className="flex justify-between w-full lg:w-64 mb-5">
                 <label className="flex items-center text-xs">
                   <input type="checkbox" name="remember" className="mr-1" />Remember Me
@@ -104,9 +122,13 @@ export default function Form({ onToggleForm }) {
           </div>
         </div>
         <div className="w-full lg:w-2/5 bg-green-500 text-white rounded-br-2xl lg:rounded-tr-2xl py-12 lg:py-36 px-6 lg:px-12" style={notAMemberSectionStyle}>
-          <h2 className="text-2xl lg:text-3xl font-bold mb-2">Not a Member? <span className="text-yellow-400">Come join us!</span></h2>
+        <h2 className="text-2xl lg:text-3xl font-bold mb-2">
+  A Member?<br className="lg:hidden" />
+  <span className="text-yellow-400 lg:whitespace-nowrap lg:break-normal">Start The Journey!</span>
+</h2>
+
           <div className="border-2 w-8 lg:w-10 border-white inline-block mb-2"></div>
-          <p className="mb-4 lg:mb-6 font-semibold">Fill up personal information and start your journey with us.</p>
+          <p className="mb-4 lg:mb-6 font-semibold">DevviCake - Where Sweet Moments Begin.</p>
           <a href="#" className="border-2 border-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white">Sign Up</a>
         </div>
       </div>
