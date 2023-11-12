@@ -1,4 +1,4 @@
-const { Order } = require("../models");
+const { Order, OrderDetail, Payment } = require("../models");
 
 class OrderService {
 
@@ -13,7 +13,16 @@ class OrderService {
 
     async getOrderById(orderId) {
         try {
-            const order = await Order.findByPk(orderId);
+            const order = await Order.findByPk(orderId, {
+                include: [
+                    {
+                        model: OrderDetail
+                    },
+                    {
+                        model: Payment
+                    }
+                ]
+            });
             if (!order) {
                 throw new Error('Order tidak ditemukan');
             }
