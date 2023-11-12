@@ -4,7 +4,8 @@
     "password": "admin",
     "database": "db_devvi",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "timezone": "+07:00"
   },
   "test": {
     "username": "root",
