@@ -11,14 +11,28 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Address, { foreignKey: 'user_id' });
+      User.hasMany(models.Cake, { foreignKey: 'user_id' });
+      User.hasMany(models.Order, { foreignKey: 'user_id' });
+      User.hasOne(models.Cart, { foreignKey: 'user_id' });
+
     }
   }
   User.init({
+    user_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     full_name: DataTypes.STRING,
     phone_number: DataTypes.STRING,
-    role: DataTypes.ENUM,
+    role: {
+      type: DataTypes.ENUM,
+      values: ['ADMIN', 'USER']
+    },
     profile_image: DataTypes.STRING,
     active: DataTypes.BOOLEAN
   }, {
