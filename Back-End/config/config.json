@@ -1,11 +1,11 @@
 {
   "development": {
     "username": "postgres",
-    "password": "admin",
+    "password": "bengkulU23B",
     "database": "db_devvi",
     "host": "127.0.0.1",
-    "dialect": "postgres",
-    "timezone": "+07:00"
+    "dialect": "postgres"
+
   },
   "test": {
     "username": "root",
