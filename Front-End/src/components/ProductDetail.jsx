@@ -1,9 +1,9 @@
 // components/ProductDetail.jsx
 import React, { useState } from 'react';
 import { HiOutlineArrowCircleRight } from 'react-icons/hi';
-import { postCartItem } from '@/rest/api'; 
+import { postCartItem } from '@/rest/api';
 
-export default function ProductDetail({ product }) {
+export default function ProductDetail({ product, addToCart }) {
   const [quantity, setQuantity] = useState(1);
 
   const formatRupiah = (number) => {
@@ -16,18 +16,19 @@ export default function ProductDetail({ product }) {
     setQuantity(parseInt(event.target.value));
   };
 
-  const addToCart = async () => {
+  const handleAddToCart = async () => {
     try {
-      // Asumsi Anda memiliki cara untuk mendapatkan cartId, misalnya dari user context
-      const userId = 3; // Contoh sementara
+
+      const userId = 1;
       await postCartItem({ userId, cakeId: product.cake_id, quantity });
+      addToCart({ ...product, quantity });
       alert('Produk ditambahkan ke keranjang');
     } catch (error) {
       console.error('Error adding to cart:', error);
       alert('Gagal menambahkan ke keranjang');
     }
   };
-  
+
   return (
     <div>
       <div className="p-3 max-w-7xl m-auto">
@@ -78,9 +79,7 @@ export default function ProductDetail({ product }) {
                     <button
                       className="flex justify-center items-center gap-2 w-full py-3 px-4 bg-red-500 text-white text-md font-bold border border-red-500 rounded-md ease-in-out duration-150 shadow-slate-600 hover:bg-white hover:text-red-500 lg:m-0 md:px-6"
                       title="Confirm Order"
-                      onClick={addToCart}
-
-                    >
+                      onClick={handleAddToCart}>
                       <span>Add to Cart</span>
                       <HiOutlineArrowCircleRight />
                     </button>

@@ -1,6 +1,6 @@
 export default function Header() {
     return (
-<header className="flex flex-col items-center mt-8 mb-16">
+<header className="flex flex-col items-center mb-16">
     <title>Devvi Cake</title>
     <img src="logo.png" className="object-contain mb-8 w-44 h-44"></img>
     <h1 className="text-4xl font-semibold tracking-widest text-center uppercase text-amber-800">DevviCake</h1>

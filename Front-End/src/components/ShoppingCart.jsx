@@ -1,34 +1,20 @@
-// ShoppingCart.jsx
+// components/ShoppingCart.jsx
 
 import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-export default function Cart({ updateCartItemCount, data }) {
+const ShoppingCart = ({ updateCartItemCount, data }) => {
   const [open, setOpen] = useState(true);
   const [cartProducts, setCartProducts] = useState(data);
 
   useEffect(() => {
-    // Update cart item count on mount
     updateCartItemCount(cartProducts.length);
-
     // Clean-up function
     return () => {
       // You can perform any clean-up here if needed
     };
   }, [cartProducts, updateCartItemCount]);
-
-  const renderCartItems = () => {
-    if (Array.isArray(cartProducts)) {
-      return cartProducts.map((product) => (
-        <li key={product.id} className="flex py-6">
-          {/* ... rest of your code for rendering cart items */}
-        </li>
-      ));
-    }
-
-    return null;
-  };
 
   const handleRemoveProduct = (productId) => {
     setCartProducts((prevProducts) => {
@@ -51,21 +37,73 @@ export default function Cart({ updateCartItemCount, data }) {
   const calculateTotalPrice = () => {
     if (cartProducts && Array.isArray(cartProducts)) {
       return cartProducts.reduce((total, product) => {
-        console.log("Product:", product);
-        console.log("Type of price:", typeof product.price);
-        console.log("Price:", product.price);
-        
         const productPrice = parseFloat((product.price || '').replace('$', ''));
-  
         if (!isNaN(productPrice) && !isNaN(product.quantity)) {
           return total + productPrice * product.quantity;
         }
-  
         return total;
       }, 0).toFixed(2);
     }
-  
     return "0.00";
+  };
+
+  const renderCartItems = () => {
+    if (Array.isArray(cartProducts)) {
+      return cartProducts.map((product) => (
+        <li key={product.id} className="flex py-6">
+          <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+          <div className="ml-4 flex flex-1 flex-col">
+            <div>
+              <div className="flex justify-between text-base font-medium text-gray-900">
+                <h3>
+                  <a href={product.href}>{product.name}</a>
+                </h3>
+                <p className="ml-4">{product.price.toFixed(2)}</p>
+              </div>
+              <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+            </div>
+            <div className="flex flex-1 items-end justify-between text-sm">
+              <p className="text-gray-500">Qty {product.quantity}</p>
+              <div className="flex">
+                <button
+                  type="button"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  onClick={() => handleAdjustQuantity(product.id, product.quantity + 1)}
+                >
+                  +
+                </button>
+                <button
+                  type="button"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  onClick={() =>
+                    handleAdjustQuantity(product.id, Math.max(1, product.quantity - 1))
+                  }
+                >
+                  -
+                </button>
+              </div>
+              <div className="flex">
+                <button
+                  type="button"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  onClick={() => handleRemoveProduct(product.id)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </li>
+      ));
+    }
+
+    return null;
   };
 
   return (
@@ -73,12 +111,7 @@ export default function Cart({ updateCartItemCount, data }) {
       <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
         <Transition.Child
           as={Fragment}
-          enter="ease-in-out duration-500"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in-out duration-500"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+          // ... (existing code)
         >
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
@@ -99,7 +132,9 @@ export default function Cart({ updateCartItemCount, data }) {
                   <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                       <div className="flex items-start justify-between">
-                        <Dialog.Title className="text-lg font-medium text-gray-900">Shopping cart</Dialog.Title>
+                        <Dialog.Title className="text-lg font-medium text-gray-900">
+                          Shopping cart
+                        </Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
@@ -116,58 +151,7 @@ export default function Cart({ updateCartItemCount, data }) {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {cartProducts.map((product) => (
-                              <li key={product.id} className="flex py-6">
-                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                  <img
-                                    src={product.imageSrc}
-                                    alt={product.imageAlt}
-                                    className="h-full w-full object-cover object-center"
-                                  />
-                                </div>
-
-                                <div className="ml-4 flex flex-1 flex-col">
-                                  <div>
-                                    <div className="flex justify-between text-base font-medium text-gray-900">
-                                      <h3>
-                                        <a href={product.href}>{product.name}</a>
-                                      </h3>
-                                      <p className="ml-4">{product.price.toFixed(1)}</p>
-                                    </div>
-                                    <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-                                  </div>
-                                  <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">Qty {product.quantity}</p>
-
-                                    <div className="flex">
-                                      <button
-                                        type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                        onClick={() => handleAdjustQuantity(product.id, product.quantity + 1)}
-                                      >
-                                        +
-                                      </button>
-                                      <button
-                                        type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                        onClick={() => handleAdjustQuantity(product.id, Math.max(1, product.quantity - 1))}
-                                      >
-                                        -
-                                      </button>
-                                    </div>
-                                    <div className="flex">
-                                      <button
-                                        type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                        onClick={() => handleRemoveProduct(product.id)}
-                                      >
-                                        Remove
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                            ))}
+                            {renderCartItems()}
                           </ul>
                         </div>
                       </div>
@@ -178,7 +162,9 @@ export default function Cart({ updateCartItemCount, data }) {
                         <p>Subtotal</p>
                         <p>${calculateTotalPrice()}</p>
                       </div>
-                      <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                      <p className="mt-0.5 text-sm text-gray-500">
+                        Shipping and taxes calculated at checkout.
+                      </p>
                       <div className="mt-6">
                         <a
                           href="#"
@@ -188,17 +174,17 @@ export default function Cart({ updateCartItemCount, data }) {
                         </a>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                        <p className='mr-2'>
+                        <p className="mr-2">
                           or
-                          </p>
-                          <button
-                            type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={() => setOpen(false)}
-                          >
-                            Continue Shopping
-                            <span aria-hidden="true"> &rarr;</span>
-                          </button>
+                        </p>
+                        <button
+                          type="button"
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                          onClick={() => setOpen(false)}
+                        >
+                          Continue Shopping
+                          <span aria-hidden="true"> &rarr;</span>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -210,4 +196,6 @@ export default function Cart({ updateCartItemCount, data }) {
       </Dialog>
     </Transition.Root>
   );
-}
+};
+
+export default ShoppingCart;

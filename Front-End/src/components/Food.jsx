@@ -1,10 +1,9 @@
-// components/Food.jsx
 import React, { useEffect, useState } from 'react';
 import ProductDetail from './ProductDetail';
 import { getCakes } from '@/rest/api';
 import { HiOutlineArrowCircleRight } from 'react-icons/hi';
 
-const Food = () => {
+const Food = ({ updateCart, cartData }) => {
   const [foods, setFoods] = useState([]);
   const [allFoods, setAllFoods] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -42,6 +41,10 @@ const Food = () => {
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
+  };
+
+  const handleAddToCart = (product) => {
+    updateCart(product);
   };
 
   return (
@@ -113,7 +116,8 @@ const Food = () => {
       {selectedProduct && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 rounded-lg">
-            <ProductDetail product={selectedProduct} />
+            {/* Pass addToCart as a prop to ProductDetail */}
+            <ProductDetail product={selectedProduct} addToCart={handleAddToCart} />
             <button
               onClick={handleCloseProductDetail}
               className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"

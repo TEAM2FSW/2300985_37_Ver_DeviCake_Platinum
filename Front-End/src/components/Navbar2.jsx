@@ -36,7 +36,7 @@ const Navbar2 = ({ toggleCart }) => {
         <nav>
           <ul className='flex flex-col p-4 text-gray-800'>
             <li className='text-xl py-4 flex'>
-              <Link href="/Main">
+              <Link href="/home">
                 <MdHome size={25} className='mr-4' /> Home
               </Link>
             </li>
