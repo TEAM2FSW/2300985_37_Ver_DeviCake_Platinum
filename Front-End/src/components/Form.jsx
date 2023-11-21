@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 import { FaFacebookF, FaInstagram, FaGoogle, FaRegEnvelope } from 'react-icons/fa';
 import { MdLockOutline } from 'react-icons/md';
+import { postLogin } from '@/rest/api';
+import { useRouter } from 'next/router';
+import url from 'url'; // Import the url library
+import { getCookie, setCookie } from "@/utils/cookies";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
 
 const signInBackgroundImageUrl = 'https://images.unsplash.com/photo-1599785209707-a456fc1337bb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGNha2V8ZW58MHx8MHx8fDA%3D';
 const backgroundImageUrl = 'https://images.unsplash.com/photo-1622090860720-c4a77e146284?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80';
 
 export default function Form({ onToggleForm }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const notAMemberSectionStyle = {
     backgroundImage: `url(${backgroundImageUrl})`,
@@ -21,24 +29,38 @@ export default function Form({ onToggleForm }) {
     backgroundPosition: 'center',
   };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const serviceLgn = async (e) => {
+    e.preventDefault();
+    const isSuccess = await postLogin(
+        {
+            email,
+            password
+        }
+    )
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+    if (isSuccess && isSuccess.status === 'success') {
+        setCookie("userData", JSON.stringify(isSuccess.data), {
+            expires: 1
+        })
+        
+        
+        alert("LOGIN BERHASIL !!!");
+        router.reload("/");
+    }
 
-  const handleSignIn = () => {
-    
-    console.log('Email:', email);
-    console.log('Password:', password);
+  }
 
-    // Toogle
-    setTimeout(() => {
-      onToggleForm();
-    }, 500);
-  };
+  useEffect(() => {
+    const userData = getCookie("userData");
+    if (userData) {
+      const parsedUserData = JSON.parse(userData);
+      if (parsedUserData && parsedUserData.token) {
+        router.push("/main");
+      }
+    }
+  }, []);
+  
+
 
   return (
     <main className="flex flex-col items-center justify-center w-full flex-1 px-4 md:px-10 lg:px-20 text-center">
@@ -61,7 +83,9 @@ export default function Form({ onToggleForm }) {
                 <FaInstagram className="text-lg lg:text-xl" />
               </a>
             </div>
+            
             <p className="text-black my-2 lg:my-3 text-black">Or use your email accounts</p>
+            <form onSubmit={serviceLgn} className="text-black my-2 lg:my-3">
             <div className="flex flex-col items-center">
               <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
                 <FaRegEnvelope className="text-gray-400 m-2" />
@@ -72,7 +96,9 @@ export default function Form({ onToggleForm }) {
                   placeholder="Email"
                   className="bg-gray-100 outline-none text-sm flex-1"
                   value={email}
-                  onChange={handleEmailChange}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
                 />
               </div>
               <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
@@ -84,7 +110,9 @@ export default function Form({ onToggleForm }) {
                   placeholder="Password"
                   className="bg-gray-100 outline-none text-sm flex-1"
                   value={password}
-                  onChange={handlePasswordChange}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
                 />
               </div>
               <div className="flex justify-between w-full lg:w-64 mb-5">
@@ -93,21 +121,28 @@ export default function Form({ onToggleForm }) {
                 </label>
                 <a href="#" className="text-xs">Forgot Password?</a>
               </div>
-              <a
-                href="#"
+              <button
                 className="border-2 border-green text-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white"
-                onClick={handleSignIn}
+                type="submit"
               >
                 Sign In
-              </a>
+              </button>
             </div>
+            </form>
           </div>
+         
         </div>
         <div className="w-full lg:w-2/5 bg-green-500 text-white rounded-br-2xl lg:rounded-tr-2xl py-12 lg:py-36 px-6 lg:px-12" style={notAMemberSectionStyle}>
-          <h2 className="text-2xl lg:text-3xl font-bold mb-2">Not a Member? <span className="text-yellow-400">Come join us!</span></h2>
+          <h2 className="text-2xl lg:text-3xl font-bold mb-2">
+            Not A Member?<br className="lg:hidden" />
+            <span className="text-yellow-400 lg:whitespace-nowrap lg:break-normal">Start The Journey!</span>
+          </h2>
+
           <div className="border-2 w-8 lg:w-10 border-white inline-block mb-2"></div>
           <p className="mb-4 lg:mb-6 font-semibold">Fill up personal information and start your journey with us.</p>
-          <a href="#" className="border-2 border-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white">Sign Up</a>
+          <a href="#" className="border-2 border-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white" onClick={onToggleForm}>
+            Sign Up
+          </a>
         </div>
       </div>
     </main>

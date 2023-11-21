@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
-import Navbar from '@/components/Navbar';
+// pages/index.js
+
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
-import Form from '@/components/Form';
+import SignIn from '@/components/Form';
 import Signup from '@/components/Signup';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   const [showSignIn, setShowSignIn] = useState(true);
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
+  const router = useRouter();
 
-  const handleToggleForm = () => {
-    setShowSignIn((prev) => !prev);
+  const handleToggleForm = async () => {
+    if (userIsLoggedIn && showSignIn) {
+      router.push('main');
+    } else {
+      setShowSignIn((prev) => !prev);
+    }
   };
 
   return (
-    <div>
-      <Navbar />
+    <div style={{ backgroundColor: '#ffd700' }}>
       <Header />
       {showSignIn ? (
-        <Form onToggleForm={handleToggleForm} />
+        <SignIn onToggleForm={handleToggleForm} setUserIsLoggedIn={setUserIsLoggedIn} />
       ) : (
-        <Signup onToggleForm={handleToggleForm} />
+        <Signup onToggleForm={handleToggleForm} setUserIsLoggedIn={setUserIsLoggedIn} />
       )}
     </div>
   );
