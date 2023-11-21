@@ -30,11 +30,11 @@ export default function Form({ onToggleForm }) {
   };
 
   const handleSignIn = () => {
-    // Add your logic to handle sign-in using email and password
+    
     console.log('Email:', email);
     console.log('Password:', password);
 
-    // Toggle to sign-up form after sign-in logic (you can adjust the delay)
+    // Toogle
     setTimeout(() => {
       onToggleForm();
     }, 500);
