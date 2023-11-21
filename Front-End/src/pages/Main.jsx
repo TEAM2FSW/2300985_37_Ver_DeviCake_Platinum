@@ -10,6 +10,7 @@ export default function Main() {
 
   return (
     <div>
+        
       <Navbar />
       <Hero />
       <HeadlineCards />
