@@ -99,6 +99,24 @@ const Checkout = () => {
           <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">Order Summary</h1>
           <ul className="py-6 border-b space-y-6 px-8">
             {/* Item Muncul */}
+
+            <li className="grid grid-cols-6 gap-2 border-b-1">
+  <div className="col-span-1 self-center">
+    <img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Product" className="rounded w-full" />
+  </div>
+  <div className="flex flex-col col-span-3 pt-2">
+    <span className="text-gray-600 text-md font-semi-bold">Cheese Cake</span>
+    <span className="text-gray-400 text-sm inline-block pt-2">Cheese Cake</span>
+  </div>
+  <div className="col-span-2 pt-3">
+    <div className="flex items-center space-x-2 text-sm justify-between">
+      <span className="text-gray-400">2 x Rp.100.000.000</span>
+      <span className="text-pink-400 font-semibold inline-block">Rp.200.000.000</span>
+    </div>
+  </div>
+</li>
+
+
           </ul>
           <div className="px-8 border-b">
             {/* Total */}
