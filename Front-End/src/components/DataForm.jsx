@@ -118,7 +118,7 @@ const Checkout = () => {
       <p className="mt-1 text-sm text-gray-500">Cheese Cake</p>
     </div>
     <div className="flex flex-1 items-end justify-between text-sm">
-      <p className="text-gray-500">Qty 2</p>
+      <p className="text-gray-500">Qty 1</p>
       <p className="text-pink-400 font-semibold inline-block">Rp.200.000.000</p>
     </div>
   </div>
