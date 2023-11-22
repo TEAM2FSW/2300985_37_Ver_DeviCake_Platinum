@@ -1,4 +1,4 @@
-// pages/home/index.js
+// pages/index.js
 
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
@@ -7,12 +7,11 @@ import HeadlineCards from '@/components/HeadlineCards';
 import Food from '@/components/Food';
 import ShoppingCart from '@/components/ShoppingCart';
 
-export default function Home() {
+const HomePage = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
-
     const existingProduct = cart.find((item) => item.id === product.id);
 
     if (existingProduct) {
@@ -22,13 +21,12 @@ export default function Home() {
         )
       );
     } else {
-
       setCart((prevCart) => [...prevCart, { ...product, quantity: 1 }]);
     }
   };
 
   const updateCartItemCount = (count) => {
-
+    // If you need to do something when the cart item count updates, you can add it here.
   };
 
   return (
@@ -46,4 +44,6 @@ export default function Home() {
       )}
     </div>
   );
-}
+};
+
+export default HomePage;

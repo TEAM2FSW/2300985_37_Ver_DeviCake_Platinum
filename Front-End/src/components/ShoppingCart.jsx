@@ -1,5 +1,4 @@
 // components/ShoppingCart.jsx
-
 import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
@@ -174,9 +173,7 @@ const ShoppingCart = ({ updateCartItemCount, data }) => {
                         </a>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                        <p className="mr-2">
-                          or
-                        </p>
+                        <p className="mr-2">or</p>
                         <button
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"

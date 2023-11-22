@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductDetail from './ProductDetail';
 import { getCakes } from '@/rest/api';
 import { HiOutlineArrowCircleRight } from 'react-icons/hi';
+import { MdClose } from 'react-icons/md'
 
 const Food = ({ updateCart, cartData }) => {
   const [foods, setFoods] = useState([]);
@@ -115,15 +116,13 @@ const Food = ({ updateCart, cartData }) => {
       {/* Product Detail */}
       {selectedProduct && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded-lg">
+          <div className="bg-white p-8 rounded-lg relative"> 
             {/* Pass addToCart as a prop to ProductDetail */}
             <ProductDetail product={selectedProduct} addToCart={handleAddToCart} />
-            <button
-              onClick={handleCloseProductDetail}
-              className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
-            >
-              Close
-            </button>
+              <button onClick={handleCloseProductDetail} className="absolute top-0 right-0 m-4"> 
+                <MdClose className="h-6 w-6 text-gray-500" />
+              </button>
+            
           </div>
         </div>
       )}
