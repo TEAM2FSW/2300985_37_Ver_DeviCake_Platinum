@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 const Checkout = () => {
   return (
-    <div>
+    <div className="bg-white min-h-screen flex items-center justify-center">
       <Head>
         <title>Checkout - Your Cakes</title>
         <link rel="icon" href="/favicon.ico" />
@@ -13,10 +13,8 @@ const Checkout = () => {
         />
       </Head>
 
-     
-
-      <div className="h-screen grid grid-cols-3">
-        <div className="lg:col-span-2 col-span-3 bg-indigo-50 space-y-8 px-12">
+      <div className="w-full max-w-screen-xl">
+        <div className="lg:col-span-2 col-span-3 bg-white space-y-8 px-12 flex flex-col items-center">
           <div className="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
             <div className="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
               <div className="text-yellow-500">
@@ -57,8 +55,8 @@ const Checkout = () => {
               </svg>
             </div>
           </div>
-          <div className="rounded-md">
-            <form id="payment-form" method="POST" action="">
+
+          <form id="payment-form" method="POST" action="">
               <section>
                 <h2 className="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
                   PENGIRIMAN DAN PEMBAYARAN
@@ -87,49 +85,100 @@ const Checkout = () => {
                 </fieldset>
               </section>
             </form>
-          </div>
-          <div className="rounded-md">
-      
-          </div>
-          <button className="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
-            Pay Rp.100.000.000
-          </button>
-        </div>
 
-        <div className="col-span-1 bg-white">
-          <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">Order Summary</h1>
-          <ul className="py-6 border-b space-y-6 px-8">
-            {/* Item Muncul */}
-            <li className="flex py-6">
-              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                <img
-                  src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  alt="Product"
-                  className="h-full w-full object-cover object-center rounded"
-                />
-              </div>
+          <div className="col-span-1 bg-white w-full">
+            <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">Order Summary</h1>
+            <ul className="py-6 border-b space-y-6 px-8">
+              {/* Item Muncul */}
+              <li className="flex py-6">
+                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                  <img
+                    src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    alt="Product"
+                    className="h-full w-full object-cover object-center rounded"
+                  />
+                </div>
 
-              <div className="ml-4 flex flex-1 flex-col">
-                <div>
-                  <div className="flex justify-between text-base font-medium text-gray-900">
-                    <h3>Cheese Cake</h3>
-                    <p className="ml-4">Rp.200.000.000</p>
+                <div className="ml-4 flex flex-1 flex-col">
+                  <div>
+                    <div className="flex justify-between text-base font-medium text-gray-900">
+                      <h3>Cheese Cake</h3>
+                      <p className="ml-4">Rp.200.000.000</p>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-500">Cheese Cake</p>
                   </div>
-                  <p className="mt-1 text-sm text-gray-500">Cheese Cake</p>
+                  <div className="flex flex-1 items-end justify-between text-sm">
+                    <p className="text-gray-500">Qty 1</p>
+                    <p className="text-pink-400 font-semibold inline-block">Rp.200.000.000</p>
+                  </div>
                 </div>
-                <div className="flex flex-1 items-end justify-between text-sm">
-                  <p className="text-gray-500">Qty 1</p>
-                  <p className="text-pink-400 font-semibold inline-block">Rp.200.000.000</p>
+              </li>
+              <li className="flex py-6">
+                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                  <img
+                    src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    alt="Product"
+                    className="h-full w-full object-cover object-center rounded"
+                  />
                 </div>
-              </div>
-            </li>
-          </ul>
-          <div className="px-8 border-b">
-            {/* Total */}
+
+                <div className="ml-4 flex flex-1 flex-col">
+                  <div>
+                    <div className="flex justify-between text-base font-medium text-gray-900">
+                      <h3>Cheese Cake</h3>
+                      <p className="ml-4">Rp.200.000.000</p>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-500">Cheese Cake</p>
+                  </div>
+                  <div className="flex flex-1 items-end justify-between text-sm">
+                    <p className="text-gray-500">Qty 1</p>
+                    <p className="text-pink-400 font-semibold inline-block">Rp.200.000.000</p>
+                  </div>
+                </div>
+              </li>
+              <li className="flex py-6">
+                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                  <img
+                    src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    alt="Product"
+                    className="h-full w-full object-cover object-center rounded"
+                  />
+                </div>
+
+                <div className="ml-4 flex flex-1 flex-col">
+                  <div>
+                    <div className="flex justify-between text-base font-medium text-gray-900">
+                      <h3>Cheese Cake</h3>
+                      <p className="ml-4">Rp.200.000.000</p>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-500">Cheese Cake</p>
+                  </div>
+                  <div className="flex flex-1 items-end justify-between text-sm">
+                    <p className="text-gray-500">Qty 1</p>
+                    <p className="text-pink-400 font-semibold inline-block">Rp.200.000.000</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div className="px-8 border-b">
+              {/* Total */}
+            </div>
+            <div className="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
+              <span>Total</span>
+              <span> Pay Rp.100.000.000 </span>
+            </div>
+
+            {/* Move the button below the summary on mobile view */}
+            <button className="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors lg:hidden">
+              Pay Rp.100.000.000
+            </button>
           </div>
-          <div className="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
-            <span>Total</span>
-            <span> Pay Rp.100.000.000 </span>
+
+          {/* Keep the button on the right for desktop and md view */}
+          <div className="lg:block hidden w-full">
+            <button className="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+              Pay Rp.100.000.000
+            </button>
           </div>
         </div>
       </div>
