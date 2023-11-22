@@ -100,21 +100,30 @@ const Checkout = () => {
           <ul className="py-6 border-b space-y-6 px-8">
             {/* Item Muncul */}
 
-            <li className="grid grid-cols-6 gap-2 border-b-1">
-  <div className="col-span-1 self-center">
-    <img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Product" className="rounded w-full" />
+            <li className="flex py-6">
+  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+    <img
+      src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1600"
+      alt="Product"
+      className="h-full w-full object-cover object-center rounded"
+    />
   </div>
-  <div className="flex flex-col col-span-3 pt-2">
-    <span className="text-gray-600 text-md font-semi-bold">Cheese Cake</span>
-    <span className="text-gray-400 text-sm inline-block pt-2">Cheese Cake</span>
-  </div>
-  <div className="col-span-2 pt-3">
-    <div className="flex items-center space-x-2 text-sm justify-between">
-      <span className="text-gray-400">2 x Rp.100.000.000</span>
-      <span className="text-pink-400 font-semibold inline-block">Rp.200.000.000</span>
+
+  <div className="ml-4 flex flex-1 flex-col">
+    <div>
+      <div className="flex justify-between text-base font-medium text-gray-900">
+        <h3>Cheese Cake</h3>
+        <p className="ml-4">Rp.200.000.000</p>
+      </div>
+      <p className="mt-1 text-sm text-gray-500">Cheese Cake</p>
+    </div>
+    <div className="flex flex-1 items-end justify-between text-sm">
+      <p className="text-gray-500">Qty 2</p>
+      <p className="text-pink-400 font-semibold inline-block">Rp.200.000.000</p>
     </div>
   </div>
 </li>
+
 
 
           </ul>
