@@ -95,37 +95,34 @@ const Checkout = () => {
             Pay Rp.100.000.000
           </button>
         </div>
-        <div className="col-span-1 bg-white lg:block hidden">
+
+        <div className="col-span-1 bg-white">
           <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">Order Summary</h1>
           <ul className="py-6 border-b space-y-6 px-8">
             {/* Item Muncul */}
-
             <li className="flex py-6">
-  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-    <img
-      src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1600"
-      alt="Product"
-      className="h-full w-full object-cover object-center rounded"
-    />
-  </div>
+              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                <img
+                  src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  alt="Product"
+                  className="h-full w-full object-cover object-center rounded"
+                />
+              </div>
 
-  <div className="ml-4 flex flex-1 flex-col">
-    <div>
-      <div className="flex justify-between text-base font-medium text-gray-900">
-        <h3>Cheese Cake</h3>
-        <p className="ml-4">Rp.200.000.000</p>
-      </div>
-      <p className="mt-1 text-sm text-gray-500">Cheese Cake</p>
-    </div>
-    <div className="flex flex-1 items-end justify-between text-sm">
-      <p className="text-gray-500">Qty 1</p>
-      <p className="text-pink-400 font-semibold inline-block">Rp.200.000.000</p>
-    </div>
-  </div>
-</li>
-
-
-
+              <div className="ml-4 flex flex-1 flex-col">
+                <div>
+                  <div className="flex justify-between text-base font-medium text-gray-900">
+                    <h3>Cheese Cake</h3>
+                    <p className="ml-4">Rp.200.000.000</p>
+                  </div>
+                  <p className="mt-1 text-sm text-gray-500">Cheese Cake</p>
+                </div>
+                <div className="flex flex-1 items-end justify-between text-sm">
+                  <p className="text-gray-500">Qty 1</p>
+                  <p className="text-pink-400 font-semibold inline-block">Rp.200.000.000</p>
+                </div>
+              </div>
+            </li>
           </ul>
           <div className="px-8 border-b">
             {/* Total */}
