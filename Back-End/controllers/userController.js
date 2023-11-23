@@ -1,67 +1,79 @@
-const UserService = require("../services/users.service");
+const UserService = require('../services/userService');
+const { createTokens } = require('../libs/jwt');
+const userService = new UserService();
 
-const userService = new UserService
+class UserController {
+    // ... (kode lainnya)
 
-class UserController{
-    async listUser(req, res) {
+    async createUser(req, res) {
         try {
-          const wali = await userService.getUser();
-          res.status(200).json({ message: "SUCCES", data: wali });
-        } catch (error) {
-          res.status(500).json({ message: "FAILED" });
-          console.error(error);
-        }
-      }
+            const { email, password, full_name, phone_number, role, profile_image } = req.body;
+            
+            // Anda mungkin ingin melakukan validasi tambahan di sini
 
-      async registerUser(req, res) {
-        try {
-          await userService.addUser(req.body);
-          // Tampilkan pesan sukses atau respons yang sesuai
-          res.status(201).json({ message: "Add user berhasil" });
-        } catch (error) {
-          console.error(error);
-          res.status(400).json({ error: error.message });
-        }
-      }
-
-      async deleteUser(req, res) {
-        try {
-          const user = await userService.delete(req.params.id);
-          res.status(201).json({
-            data: user,
-            message: "Berhasil Menghapus User",
-          });
-        } catch (error) {
-          console.log(error);
-          res.status(500).json({ error: "Gagal Menghapus User." });
-        }
-      }
-
-      async updateUser(req, res) {
-        try {
-            const user = await userService.findOne({
-                where: {
-                  user_id: req.params.id,
-                },
-              })
-            // Validasi input bisa ditambahkan di sini
-            if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
-            const {email, password, confPassword, full_name, phone_number, role, profile_image, active } = req.body;
-   
-            const updatedUser = await userService.upda(paymentId, status);
+            const user = await userService.createUser({ email, password, full_name, phone_number, role, profile_image });
             res.status(200).json({
                 status: "success",
-                data: updatedPayment
+                data: user,
+                message: 'Akun berhasil di daftarkan !!'
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });
         }
     }
+    
+    async login(req, res) {
+        try {
+            const user = await userService.login(req.body.email, req.body.password);
 
+            // Membuat JWT token setelah pengguna berhasil login
+            const accessToken = createTokens(user);
 
+            const objekUser = {
+                full_name: user.full_name,
+                user_id: user.user_id,
+                email: user.email,
+                phone_number: user.phone_number,
+                profile_image: user.profile_image,
+                role: user.role,
+                accessToken: accessToken,
+      
+              };
+            
+            res.status(201).json({
+                status: 'success',
+                data: objekUser,
+                message: 'Login Berhasil!'
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: 'error',
+                message: error.message
+            });
+        }
+    }
+
+    async deleteUser(req, res) {
+        try {
+            const userId = req.params.id; // Mendapatkan ID pengguna dari parameter URL
+
+            // Panggil metode deleteUser dari UserService
+            const message = await userService.deleteUser(userId);
+
+            res.status(200).json({
+                status: "success",
+                message: message
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: "failed",
+                message: error.message
+            });
+        }
+    }
 }
 
-module.exports = UserController
+module.exports = UserController;

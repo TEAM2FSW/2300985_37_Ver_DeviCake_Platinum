@@ -12,7 +12,7 @@ class OrderDetailController {
                 data: orderDetail
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });
@@ -28,7 +28,7 @@ class OrderDetailController {
                 data: orderDetails
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });
@@ -45,7 +45,7 @@ class OrderDetailController {
                 data: orderDetail
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });
@@ -65,7 +65,7 @@ class OrderDetailController {
                 data: updatedOrderDetail
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });
@@ -81,7 +81,7 @@ class OrderDetailController {
                 data: result
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });

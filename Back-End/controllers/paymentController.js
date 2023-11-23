@@ -12,7 +12,7 @@ class PaymentController {
                 data: payment
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });
@@ -28,7 +28,7 @@ class PaymentController {
                 data: payments
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });
@@ -45,7 +45,7 @@ class PaymentController {
                 data: payment
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });
@@ -65,7 +65,7 @@ class PaymentController {
                 data: updatedPayment
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });
@@ -81,7 +81,7 @@ class PaymentController {
                 data: result
             });
         } catch (error) {
-            res.status(500).json({
+            res.status(400).json({
                 status: "failed",
                 message: error.message,
             });

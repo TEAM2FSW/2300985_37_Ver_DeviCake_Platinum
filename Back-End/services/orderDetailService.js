@@ -29,18 +29,18 @@ class OrderDetailService {
 
     async addOrderDetail({ order_id, cake_id, quantity }) {
         try {
-            // const cake = await Cake.findByPk(cake_id);
-            // if (!cake) {
-            //     throw new Error('Cake tidak ditemukan');
-            // }
+            const cake = await Cake.findByPk(cake_id);
+            if (!cake) {
+                throw new Error('Cake tidak ditemukan');
+            }
 
             const order = await Order.findByPk(order_id);
             if (!order) {
                 throw new Error('Order tidak ditemukan');
             }
 
-            //const sub_total = cake.price * quantity;
-            const sub_total = 0 * quantity
+            const sub_total = cake.price * quantity;
+            //const sub_total = 0 * quantity
 
             const orderDetail = await OrderDetail.create({
                 order_id,
@@ -63,15 +63,15 @@ class OrderDetailService {
                 throw new Error('Order detail tidak ditemukan');
             }
 
-            // const cake = await Cake.findByPk(cake_id);
-            // if (!cake) {
-            //     throw new Error('Cake tidak ditemukan');
-            // }
+            const cake = await Cake.findByPk(cake_id);
+            if (!cake) {
+                throw new Error('Cake tidak ditemukan');
+            }
 
             orderDetail.cake_id = cake_id;
             orderDetail.quantity = quantity;
-            orderDetail.sub_total = 0 * quantity;
-            //orderDetail.sub_total = cake.price * quantity;
+            //orderDetail.sub_total = 0 * quantity;
+            orderDetail.sub_total = cake.price * quantity;
 
             await orderDetail.save();
             return orderDetail;
