@@ -20,8 +20,8 @@ class AddressController{
 
     async getAddressDetails(req, res) {
         try {
-            const { addressId } = req.params;
-            const address = await addressService.getAddressById(addressId);
+            const { address_id } = req.params;
+            const address = await addressService.getAddressById(address_id);
             res.status(200).json({
                 status: "success",
                 data: address
@@ -68,10 +68,32 @@ class AddressController{
         }
     }
 
+    //update Address
+    async updateAddress(req, res) {
+        try {
+            const { address_id } = req.params;
+            const {  recipient_name, address, phone_number, active } = req.body;
+
+            // Anda mungkin ingin menambahkan validasi tambahan di sini
+
+            const updatedAddress = await addressService.updateAddress(address_id, recipient_name, address, phone_number, active);
+            res.status(200).json({
+                status: "success",
+                data: updatedAddress
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: "failed",
+                message: error.message,
+            });
+        }
+    }
+
+
     async deleteAddress(req, res) {
         try {
-            const { addressId } = req.params;
-            const hapus = await addressService.deleteAddress(addressId);
+            const { address_id } = req.params;
+            const hapus = await addressService.deleteAddress(address_id);
             res.status(200).json({
                 status: "success",
                 data: hapus

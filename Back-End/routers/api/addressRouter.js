@@ -6,10 +6,10 @@ const addressController = new AddressController();
 
 addressRouter.get('/', addressController.getAddressAll);
 addressRouter.post('/', addressController.createAddress);
-// addressRouter.put('/:addressId/status', addressController.);
-addressRouter.get('/:addressId', addressController.getAddressDetails);
+addressRouter.put('/:address_id', addressController.updateAddress);
+addressRouter.get('/:address_id', addressController.getAddressDetails);
 addressRouter.get('/user/:userId', addressController.getUserAddress);
-addressRouter.delete('/:adressId', addressController.deleteAddress);
+addressRouter.delete('/:address_id', addressController.deleteAddress);
 
 
 module.exports = addressRouter;

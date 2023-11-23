@@ -30,9 +30,9 @@ class AddressService {
   }
 
   //data by id
-  async getAddressById(addressId) {
+  async getAddressById(address_id) {
     try {
-      const address = await Address.findByPk(addressId);
+      const address = await Address.findByPk(address_id);
       if (!address) {
         throw new Error("Address tidak ditemukan");
       }
@@ -43,23 +43,12 @@ class AddressService {
     }
   }
 
-  //data address by user ID
-  async getAllAddressByUserId(userId) {
-    try {
-      const address = await Address.findAll({
-        where: { user_id: userId, active: true },
-      });
-      return address;
-    } catch (error) {
-      console.error("Error tidak dapat mengambil alamat pengguna:", error);
-      throw error;
-    }
-  }
+
 
   // delete address
-  async deleteAddress(addressId) {
+  async deleteAddress(address_id) {
     try {
-      const address = await Address.findByPk(addressId);
+      const address = await Address.findByPk(address_id);
       if (!address) {
         throw new Error("Address tidak ditemukan");
       }
@@ -71,6 +60,28 @@ class AddressService {
       throw error;
     }
   }
+
+  async updateAddress(address_id, recipient_name, address, phone_number, active) {
+    try {
+        const addressDetail = await Address.findByPk(address_id);
+        if (!addressDetail) {
+            throw new Error('Address  tidak ditemukan');
+        }
+
+
+        addressDetail.recipient_name = recipient_name;
+        addressDetail.address = address;
+        addressDetail.phone_number = phone_number;
+        addressDetail.active = active;
+        
+
+        await addressDetail.save();
+        return addressDetail;
+    } catch (error) {
+        console.error('Error saat memperbarui Address:', error);
+        throw error;
+    }
+}
 }
 
 
