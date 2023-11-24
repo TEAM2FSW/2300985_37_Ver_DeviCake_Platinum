@@ -43,8 +43,6 @@ class AddressService {
     }
   }
 
-
-
   // delete address
   async deleteAddress(address_id) {
     try {
@@ -61,28 +59,31 @@ class AddressService {
     }
   }
 
-  async updateAddress(address_id, recipient_name, address, phone_number, active) {
+  async updateAddress(
+    address_id,
+    recipient_name,
+    address,
+    phone_number,
+    active
+  ) {
     try {
-        const addressDetail = await Address.findByPk(address_id);
-        if (!addressDetail) {
-            throw new Error('Address  tidak ditemukan');
-        }
+      const addressDetail = await Address.findByPk(address_id);
+      if (!addressDetail) {
+        throw new Error("Address  tidak ditemukan");
+      }
 
+      addressDetail.recipient_name = recipient_name;
+      addressDetail.address = address;
+      addressDetail.phone_number = phone_number;
+      addressDetail.active = active;
 
-        addressDetail.recipient_name = recipient_name;
-        addressDetail.address = address;
-        addressDetail.phone_number = phone_number;
-        addressDetail.active = active;
-        
-
-        await addressDetail.save();
-        return addressDetail;
+      await addressDetail.save();
+      return addressDetail;
     } catch (error) {
-        console.error('Error saat memperbarui Address:', error);
-        throw error;
+      console.error("Error saat memperbarui Address:", error);
+      throw error;
     }
+  }
 }
-}
-
 
 module.exports = AddressService;
