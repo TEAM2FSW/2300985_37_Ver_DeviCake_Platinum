@@ -1,109 +1,95 @@
 // components/ShoppingCart.jsx
+
 import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { getCart, deleteCartItem, updateCartQuantity } from '@/rest/api';
 import Link from 'next/link';
+
 
 const ShoppingCart = ({ updateCartItemCount, data }) => {
   const [open, setOpen] = useState(true);
   const [cartProducts, setCartProducts] = useState(data);
+  const [subtotal, setSubtotal] = useState(0);
+
+ 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cakesData = await getCart();
+        setCartProducts(cakesData);
+      } catch (error) {
+        console.error('Failed to fetch cart:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
-    updateCartItemCount(cartProducts.length);
-    // Clean-up function
-    return () => {
-      // You can perform any clean-up here if needed
-    };
-  }, [cartProducts, updateCartItemCount]);
+    const newSubtotal = calculateTotalPrice();
+    setSubtotal(newSubtotal);
+  }, [cartProducts]);
 
-  const handleRemoveProduct = (productId) => {
-    setCartProducts((prevProducts) => {
-      const updatedProducts = prevProducts.filter((data) => data.id !== productId);
-      updateCartItemCount(updatedProducts.length); // Update cart item count
-      return updatedProducts;
-    });
+  // const handleRemoveProduct = (productId) => {
+  //   setCartProducts((prevProducts) => {
+  //     const updatedProducts = prevProducts.filter((data) => data.id !== productId);
+  //     updateCartItemCount(updatedProducts.length); // Update cart item count
+  //     return updatedProducts;
+  //   });
+  // };
+
+  const handleRemoveProduct = async (cart_item_id) => {
+    try {
+      // Call the deleteCartItem function and pass the cart_item_id
+      await deleteCartItem({ cart_item_id: cart_item_id });
+  
+      // Filter out the removed item from the cartProducts state
+      setCartProducts((prevProducts) => prevProducts.filter(item => item.cart_item_id !== cart_item_id));
+  
+      // Optionally, update cart item count if you have such a function/state
+      // updateCartItemCount(cartProducts.length - 1);
+    } catch (error) {
+      // Handle any errors here
+      console.error("Error removing cart item:", error);
+    }
   };
 
-  const handleAdjustQuantity = (productId, newQuantity) => {
-    setCartProducts((prevProducts) => {
-      const updatedProducts = prevProducts.map((product) =>
-        product.id === productId ? { ...product, quantity: newQuantity } : product
-      );
-      updateCartItemCount(updatedProducts.length); // Update cart item count
-      return updatedProducts;
-    });
+  const handleAdjustQuantity = async (productId, newQuantity) => {
+    try {
+      // Call the updateCartQuantity API function
+      await updateCartQuantity({ cart_item_id: productId, quantity: newQuantity });
+  
+      // Update the local cartProducts state
+      setCartProducts(prevProducts => prevProducts.map(item => {
+        if (item.cart_item_id === productId) {
+          // Calculate new sub_total
+          const newSubTotal = item.Cake.price * newQuantity;
+  
+          return { ...item, quantity: newQuantity, sub_total: newSubTotal };
+        }
+        return item;
+      }));
+    } catch (error) {
+      console.error("Error adjusting cart quantity:", error);
+    }
   };
+  
 
   const calculateTotalPrice = () => {
     if (cartProducts && Array.isArray(cartProducts)) {
-      return cartProducts.reduce((total, product) => {
-        const productPrice = parseFloat((product.price || '').replace('$', ''));
-        if (!isNaN(productPrice) && !isNaN(product.quantity)) {
-          return total + productPrice * product.quantity;
-        }
-        return total;
-      }, 0).toFixed(2);
+      return cartProducts.reduce((total, item) => {
+        return total + item.sub_total;
+      }, 0); // Formats the total as a string with two decimal places
     }
-    return "0.00";
+    return "0";
   };
 
-  const renderCartItems = () => {
-    if (Array.isArray(cartProducts)) {
-      return cartProducts.map((product) => (
-        <li key={product.id} className="flex py-6">
-          <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-          <div className="ml-4 flex flex-1 flex-col">
-            <div>
-              <div className="flex justify-between text-base font-medium text-gray-900">
-                <h3>
-                  <a href={product.href}>{product.name}</a>
-                </h3>
-                <p className="ml-4">{product.price.toFixed(2)}</p>
-              </div>
-              <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-            </div>
-            <div className="flex flex-1 items-end justify-between text-sm">
-              <p className="text-gray-500">Qty {product.quantity}</p>
-              <div className="flex">
-                <button
-                  type="button"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                  onClick={() => handleAdjustQuantity(product.id, product.quantity + 1)}
-                >
-                  +
-                </button>
-                <button
-                  type="button"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                  onClick={() =>
-                    handleAdjustQuantity(product.id, Math.max(1, product.quantity - 1))
-                  }
-                >
-                  -
-                </button>
-              </div>
-              <div className="flex">
-                <button
-                  type="button"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                  onClick={() => handleRemoveProduct(product.id)}
-                >
-                  Remove
-                </button>
-              </div>
-            </div>
-          </div>
-        </li>
-      ));
-    }
+ 
 
-    return null;
+  const formatRupiah = (number) => {
+    const parts = number.toFixed(0).toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return `Rp. ${parts.join('.')}`;
   };
 
   return (
@@ -151,7 +137,64 @@ const ShoppingCart = ({ updateCartItemCount, data }) => {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {renderCartItems()}
+                          {cartProducts.map((item, index) => (
+                          
+                          <li key={item.cart_item_id} className="flex py-6">
+                          <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                            <img
+                              src={item.Cake.image}
+                              alt={item.Cake.name}
+                              className="h-full w-full object-cover object-center"
+                            />
+                          </div>
+
+                          <div className="ml-4 flex flex-1 flex-col">
+                            <div>
+                              <div className="flex justify-between text-base font-medium text-gray-900">
+                                <h3>
+                                  <a href="#">{item.Cake.name}</a>
+                                </h3>
+                                <p className="ml-4">{formatRupiah(item.Cake.price)}</p>        
+                              </div>
+                              <p className="mt-1 text-sm text-gray-500">{item.Cake.description}</p>
+                            </div>
+                            <div className="flex flex-1 items-end justify-between text-sm">
+                            <div className="flex items-center">
+                              <button
+                                className="text-gray-500 hover:text-gray-700"
+                                onClick={() => handleAdjustQuantity(item.cart_item_id, Math.max(1, item.quantity - 1))}
+                              >
+                                -
+                              </button>
+                              <input 
+                                type="number"
+                                className="mx-2 border text-center w-12"
+                                value={item.quantity}
+                                min={1}
+                                onChange={(e) => handleAdjustQuantity(item.cart_item_id, Math.max(1, parseInt(e.target.value)))}
+                              />
+                              <button
+                                className="text-gray-500 hover:text-gray-700"
+                                onClick={() => handleAdjustQuantity(item.cart_item_id, item.quantity + 1)}
+                              >
+                                +
+                              </button>
+                            </div>
+                              <div className="flex">
+                                <button
+                                  type="button"
+                                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                                  onClick={() => handleRemoveProduct(item.cart_item_id)}
+                                >
+                                  Remove
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+
+                          ))}
+                          
                           </ul>
                         </div>
                       </div>
@@ -160,21 +203,27 @@ const ShoppingCart = ({ updateCartItemCount, data }) => {
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>${calculateTotalPrice()}</p>
+                        <p>{formatRupiah(subtotal)}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">
                         Shipping and taxes calculated at checkout.
                       </p>
                       <div className="mt-6">
-                        <Link
-                          href="/checkout"
+                      <Link href="/checkout">
+              
+                       <div
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
-                        </Link>
+                        </div>
+                        
+                      </Link>
+                        
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                        <p className="mr-2">or</p>
+                        <p className="mr-2">
+                          or
+                        </p>
                         <button
                           type="button"
                           className="font-medium text-indigo-600 hover:text-indigo-500"

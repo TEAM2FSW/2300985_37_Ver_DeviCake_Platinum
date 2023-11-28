@@ -52,10 +52,11 @@ export default function Form({ onToggleForm }) {
 
   useEffect(() => {
     const userData = getCookie("userData");
+    //console.log(userData);
     if (userData) {
       const parsedUserData = JSON.parse(userData);
-      if (parsedUserData && parsedUserData.token) {
-        router.push("/main");
+      if (parsedUserData && parsedUserData.accessToken) {
+        router.push("/home");
       }
     }
   }, []);

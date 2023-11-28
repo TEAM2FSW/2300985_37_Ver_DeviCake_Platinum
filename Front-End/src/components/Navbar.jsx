@@ -6,10 +6,16 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import { FaWallet } from 'react-icons/fa';
 import { MdFavorite, MdHistory, MdHome } from 'react-icons/md';
 import Cart from '@/components/ShoppingCart';
-
+import { removeCookie } from "@/utils/cookies";
+import { useRouter } from "next/router";
 
 const Navbar = ({ toggleCart }) => {
   const [nav, setNav] = useState(false);
+  const router = useRouter();
+  const logout = () => {
+    removeCookie("userData");
+    router.reload("/");
+  };
 
   return (
     <div className='max-w-[1640px] mx-auto flex justify-between items-center p-4'>
@@ -88,42 +94,42 @@ const Navbar = ({ toggleCart }) => {
           <ul className='flex flex-col p-4 text-gray-800'>
             <li className='text-xl py-4 flex'>
               <Link href="/home">
-              
-                  <MdHome size={25} className='mr-4' /> Home
-                
+
+                <MdHome size={25} className='mr-4' /> Home
+
               </Link>
             </li>
             <li className='text-xl py-4 flex'>
               <Link href="/orders">
-              
-                  <TbTruckDelivery size={25} className='mr-4' /> Orders
-                
+
+                <TbTruckDelivery size={25} className='mr-4' /> Orders
+
               </Link>
             </li>
             <li className='text-xl py-4 flex'>
               <Link href="/favorites">
-              
-                  <MdFavorite size={25} className='mr-4' /> Favorites
-                
+
+                <MdFavorite size={25} className='mr-4' /> Favorites
+
               </Link>
             </li>
             <li className='text-xl py-4 flex'>
               <Link href="/wallet">
-              
-                  <FaWallet size={25} className='mr-4' /> Wallet
-                
+
+                <FaWallet size={25} className='mr-4' /> Wallet
+
               </Link>
             </li>
             <li className='text-xl py-4 flex'>
               <Link href="/history">
-              
-                  <MdHistory size={25} className='mr-4' /> History
-                
+
+                <MdHistory size={25} className='mr-4' /> History
+
               </Link>
             </li>
           </ul>
 
-          <button>Log Out</button>
+          <button onClick={logout} >Log Out</button>
         </nav>
       </div>
     </div>

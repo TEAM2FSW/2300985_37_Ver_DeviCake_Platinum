@@ -1,13 +1,16 @@
+// components/Food.jsx
 import React, { useEffect, useState } from 'react';
 import ProductDetail from './ProductDetail';
 import { getCakes } from '@/rest/api';
 import { HiOutlineArrowCircleRight } from 'react-icons/hi';
 import { MdClose } from 'react-icons/md';
 
-const Food = ({ updateCart, cartData }) => {
+
+const Food = () => {
   const [foods, setFoods] = useState([]);
   const [allFoods, setAllFoods] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,12 +47,8 @@ const Food = ({ updateCart, cartData }) => {
     setSelectedProduct(product);
   };
 
-  const handleAddToCart = (product) => {
-    updateCart(product);
-  };
-
   return (
-    <div className="max-w-[1080px] m-auto px-4 py-12">
+    <div className="max-w-[1640px] m-auto px-4 py-12">
       <h1 className="text-orange-600 font-bold text-4xl text-center">
         Top Rated Menu Items
       </h1>
@@ -99,7 +98,7 @@ const Food = ({ updateCart, cartData }) => {
             <img
               src={item.image}
               alt={item.name}
-              className="w-full h-[150px] object-cover rounded-t-lg"
+              className="w-full h-[200px] object-cover rounded-t-lg"
             />
             <div className="flex flex-col md:flex-row justify-between px-2 py-4">
               <p className="font-bold">{item.name}</p>
@@ -113,18 +112,19 @@ const Food = ({ updateCart, cartData }) => {
         ))}
       </div>
 
- {/* Product Detail */}
-{selectedProduct && (
-  <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
-    <div className="bg-white p-4 lg:p-8 rounded-lg relative">
-      {/* Pass addToCart as a prop to ProductDetail */}
-      <ProductDetail product={selectedProduct} addToCart={handleAddToCart} />
-      <button onClick={handleCloseProductDetail} className="absolute top-0 right-0 m-4">
-        <MdClose className="h-6 w-6 text-gray-500" />
-      </button>
-    </div>
-  </div>
-)}
+      {/* Product Detail */}
+      {selectedProduct && (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-4 lg:p-8 rounded-lg relative">
+            {/* Pass addToCart as a prop to ProductDetail */}
+            <ProductDetail product={selectedProduct} />
+            <button onClick={handleCloseProductDetail} className="absolute top-0 right-0 m-4">
+              <MdClose className="h-6 w-6 text-gray-500" />
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

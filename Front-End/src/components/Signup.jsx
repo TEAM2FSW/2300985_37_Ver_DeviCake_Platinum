@@ -14,7 +14,19 @@ export default function Signup({ onToggleForm }) {
   const [profileImage, setProfileImage] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   const [imageUploadUrl, setImageUploadUrl] = useState(null);
-  
+  const [imagePreview, setImagePreview] = useState(null);
+
+  const handleImagesChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleImageUpload = async (file) => {
     const formData = new FormData();
     formData.append('image', file);
@@ -22,7 +34,7 @@ export default function Signup({ onToggleForm }) {
     try {
       // Replace 'your-api-endpoint' with the actual API endpoint
       const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-      const response = await fetch(`${apiBaseUrl}/api/upload/profile`, {
+      const response = await fetch(`${apiBaseUrl}/api/images/upload/profile`, {
         method: 'POST',
         body: formData,
       });
@@ -75,32 +87,32 @@ export default function Signup({ onToggleForm }) {
 
 
   const serviceRegistrtion = async (e) => {
-      e.preventDefault();
-  
-      // First, upload the image
-      if (profileImage) {
-        await handleImageUpload(profileImage);
+    e.preventDefault();
+
+    // First, upload the image
+    if (profileImage) {
+      await handleImageUpload(profileImage);
     }
-  
-      // Then, register the user with the image URL
-      const registrationData = {
-        full_name,
-        phone_number,
-        email,
-        password,
-        imageUrl: imageUploadUrl // Make sure this matches the backend's expected field name
+
+    // Then, register the user with the image URL
+    const registrationData = {
+      full_name,
+      phone_number,
+      email,
+      password,
+      imageUrl: imageUploadUrl // Make sure this matches the backend's expected field name
     };
 
     const isSuccess = await postRegistrtion(registrationData);
-  
-      if (isSuccess && isSuccess.status === 'success') {
-          alert(isSuccess.message);
-          onToggleForm();
-      }
+
+    if (isSuccess && isSuccess.status === 'success') {
+      alert(isSuccess.message);
+      onToggleForm();
+    }
   };
-  
+
   // Update this function to set the image URL
- 
+
   return (
     <main className="flex flex-col items-center justify-center w-full flex-1 px-4 md:px-10 lg:px-20 text-center">
       <div className="bg-white rounded-2xl shadow-2xl flex flex-col lg:flex-row w-full max-w-4xl">
@@ -124,99 +136,105 @@ export default function Signup({ onToggleForm }) {
             </div>
             <p className="text-black my-2 lg:my-3 text-black">Or use your email accounts</p>
             <form onSubmit={serviceRegistrtion} className="text-black my-2 lg:my-3">
-            <div className="flex flex-col items-center">
-              <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
-                <FaRegUser className="text-gray-400 m-2" />
-                <input
-                  required
-                  type="text"
-                  name="fullname"
-                  placeholder="Full Name"
-                  className="bg-gray-100 outline-none text-sm flex-1"
-                  value={full_name}
-              onChange={(e) => {
-                setFull_name(e.target.value);
-              }}
-                />
+              <div className="flex flex-col items-center">
+                <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
+                  <FaRegUser className="text-gray-400 m-2" />
+                  <input
+                    required
+                    type="text"
+                    name="fullname"
+                    placeholder="Full Name"
+                    className="bg-gray-100 outline-none text-sm flex-1"
+                    value={full_name}
+                    onChange={(e) => {
+                      setFull_name(e.target.value);
+                    }}
+                  />
+                </div>
+
+                <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
+                  <MdOutlineSmartphone className="text-gray-400 m-2" />
+                  <input
+                    required
+                    type="text"
+                    name="phonenumber"
+                    placeholder="Phone Number"
+                    className="bg-gray-100 outline-none text-sm flex-1"
+                    value={phone_number}
+                    onChange={(e) => {
+                      setPhone_number(e.target.value);
+                    }}
+                  />
+                </div>
+
+                <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
+                  <FaRegEnvelope className="text-gray-400 m-2" />
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    className="bg-gray-100 outline-none text-sm flex-1"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
+                </div>
+
+                <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
+                  <MdLockOutline className="text-gray-400 m-2" />
+                  <input
+                    required
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    className="bg-gray-100 outline-none text-sm flex-1"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                </div>
+
+                <div className="bg-gray-100 w-full lg:w-64  flex items-center mb-3">
+                  <div className="flex flex-col items-center bg-gray-100 w-full lg:w-64  flex items-center mb-3" >
+                    <label className="flex flex-col justify-center items-center w-full h-full bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+                      <div id="preview-container" className="flex flex-col justify-center items-center w-full h-full" style={{ maxWidth: '250px', maxHeight: '250px' }}>
+                        {imagePreview ? (
+                          <img src={imagePreview} alt="Preview" style={{ maxWidth: '250px', maxHeight: '250px', width: 'auto', height: 'auto' }} />
+                        ) : (
+                          <>
+                            <svg className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 8h10M7 12h10m-7 4h7"></path>
+                            </svg>
+                            <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                            <p className="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x800px)</p>
+                          </>
+                        )}
+                      </div>
+                      <input type="file" name="profile_image" className="hidden" onChange={handleImagesChange} />
+                    </label>
+                  </div>
+                </div>
+
+
+
+
+                <div className="flex justify-between w-full lg:w-64 mb-5">
+                  <label className="flex items-center text-xs">
+                    <input type="checkbox" name="remember" className="mr-1" />Remember Me
+                  </label>
+                  <a href="#" className="text-xs">Forgot Password?</a>
+                </div>
+                <button
+                  href="#"
+                  className="border-2 border-green text-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white"
+                  type="submit"
+                >
+                  Sign up
+                </button>
               </div>
-
-              <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
-                <MdOutlineSmartphone className="text-gray-400 m-2" />
-                <input
-                  required
-                  type="text"
-                  name="phonenumber"
-                  placeholder="Phone Number"
-                  className="bg-gray-100 outline-none text-sm flex-1"
-                  value={phone_number}
-              onChange={(e) => {
-                setPhone_number(e.target.value);
-              }}
-                />
-              </div>
-
-              <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
-                <FaRegEnvelope className="text-gray-400 m-2" />
-                <input
-                  required
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  className="bg-gray-100 outline-none text-sm flex-1"
-                  value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-                />
-              </div>
-
-              <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
-                <MdLockOutline className="text-gray-400 m-2" />
-                <input
-                  required
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  className="bg-gray-100 outline-none text-sm flex-1"
-                  value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-                />
-              </div>
-
-       
-
-              <div className="bg-gray-100 w-full lg:w-64 p-2 flex items-center mb-3">
-        <input
-          type="file"
-          name="profile_image"
-          onChange={handleImageChange}
-          className="bg-gray-100 outline-none text-sm flex-1"
-        />
-      </div>
-
-             {/* Image preview section */}
-             {imagePreviewUrl && (
-        <div className="mb-3">
-          <img src={imagePreviewUrl} alt="Profile Preview" className="w-20 h-20 object-cover rounded-full" />
-        </div>
-      )}
-      
-              <div className="flex justify-between w-full lg:w-64 mb-5">
-                <label className="flex items-center text-xs">
-                  <input type="checkbox" name="remember" className="mr-1" />Remember Me
-                </label>
-                <a href="#" className="text-xs">Forgot Password?</a>
-              </div>
-              <button
-                href="#"
-                className="border-2 border-green text-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white"
-                type="submit"
-              >
-                Sign up
-              </button>
-            </div>
             </form>
           </div>
         </div>
