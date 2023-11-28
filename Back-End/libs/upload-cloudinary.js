@@ -11,7 +11,8 @@ cloudinary.config({
 const uploadCloudinary = async (file) => {
     try {
         const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${file.buffer.toString('base64')}`, {
-            use_filename: true
+            use_filename: true,
+            unique_filename: false
         });
 
         return result;

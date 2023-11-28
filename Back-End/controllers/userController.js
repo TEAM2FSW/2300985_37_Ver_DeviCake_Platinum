@@ -7,10 +7,10 @@ class UserController {
 
   async getUserAll(req, res) {
     try {
-        const orders = await userService.getUserAll();
+        const users = await userService.getUserAll();
         res.status(200).json({
             status: "success",
-            data: orders
+            data: users
         });
     } catch (error) {
         res.status(400).json({
@@ -22,7 +22,7 @@ class UserController {
 
   async createUser(req, res) {
     try {
-      const { email, password, full_name, phone_number, role, profile_image } =
+      const { email, password, full_name, phone_number, role, profile_image, active } =
         req.body;
 
       // Anda mungkin ingin melakukan validasi tambahan di sini
@@ -34,6 +34,7 @@ class UserController {
         phone_number,
         role,
         profile_image,
+        active: true,
       });
       res.status(200).json({
         status: "success",

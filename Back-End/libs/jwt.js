@@ -1,5 +1,5 @@
 const { sign, verify } = require("jsonwebtoken");
-const SECRETTOKEN = require("./secret");
+const SECRETTOKEN = process.env.SECRETTOKEN;
 
 const createTokens = (user) => {
     //console.log(user);
