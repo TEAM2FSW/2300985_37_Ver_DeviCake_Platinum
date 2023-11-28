@@ -4,6 +4,15 @@ const bcrypt = require('bcrypt');
 class UserService {
     // ... (kode lainnya)
 
+    async getUserAll() {
+        try {
+            return await User.findAll({ where: { active: true } });
+        } catch (error) {
+            console.error('Gagal mengambil user:', error);
+            throw error;
+        }
+    }
+
     async createUser(userData) {
         try {
             // Validasi input (Anda mungkin ingin melakukan validasi yang lebih rumit di sini)
