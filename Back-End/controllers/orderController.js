@@ -88,6 +88,43 @@ class OrderController {
         }
     }
 
+    async updateOrderStatusByInvoice(req, res) {
+        try {
+            const { invoice } = req.body;
+            const { status } = req.body;
+
+            // Anda mungkin ingin menambahkan validasi tambahan di sini
+
+            const updatedOrder = await orderService.updateOrderStatusByInvoice(invoice, status);
+            res.status(200).json({
+                status: "success",
+                data: updatedOrder
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: "failed",
+                message: error.message,
+            });
+        }
+    }
+
+    async addOrderAll(req, res) {
+        try {
+            const orders = await orderService.addOrderAll(req.body);
+                res.status(200).json({
+                    status: "success",
+                    data: orders
+                });
+
+
+        } catch (error) {
+            res.status(400).json({
+                status: "failed",
+                message: error.message,
+            });
+        }
+    }
+
     async deleteOrder(req, res) {
         try {
             const { orderId } = req.params;

@@ -72,6 +72,26 @@ class PaymentController {
         }
     }
 
+    async updatePaymentStatusByInvoice(req, res) {
+        try {
+            const { invoice } = req.body;
+            const { status } = req.body;
+            
+            // Validasi input bisa ditambahkan di sini
+
+            const updatedPayment = await paymentService.updatePaymentStatusByInvoice(invoice, status);
+            res.status(200).json({
+                status: "success",
+                data: updatedPayment
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: "failed",
+                message: error.message,
+            });
+        }
+    }
+
     async deletePayment(req, res) {
         try {
             const { paymentId } = req.params;

@@ -95,6 +95,25 @@ class PaymentService {
             throw error;
         }
     }
+    
+    async updatePaymentStatusByInvoice(invoice, newStatus) {
+        try {
+            const payment = await Payment.findOne({ 
+                where: { invoice: invoice }
+            });
+
+            if (!payment) {
+                throw new Error('Payment tidak ditemukan');
+            }
+
+            payment.status = newStatus;
+            await payment.save();
+            return payment;
+        } catch (error) {
+            console.error('Error saat memperbarui status pembayaran:', error);
+            throw error;
+        }
+    }
 
     async deletePayment(paymentId) {
         try {
