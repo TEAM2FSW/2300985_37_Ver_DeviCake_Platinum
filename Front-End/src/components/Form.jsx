@@ -123,7 +123,7 @@ export default function Form({ onToggleForm }) {
                 <a href="#" className="text-xs">Forgot Password?</a>
               </div>
               <button
-                className="border-2 border-green text-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white"
+                className="border-2 border-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white text-white"
                 type="submit"
               >
                 Sign In
