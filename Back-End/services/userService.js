@@ -89,8 +89,9 @@ class UserService {
         }
     }
 
-
+    
     // ... (kode lainnya)
+
 }
 
 module.exports = UserService;
