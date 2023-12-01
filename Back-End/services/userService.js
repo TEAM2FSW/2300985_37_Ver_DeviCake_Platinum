@@ -6,7 +6,8 @@ class UserService {
 
     async getUserAll() {
         try {
-            return await User.findAll({ where: { active: true } });
+            // return await User.findAll({ where: { active: true } });
+            return await User.findAll();
         } catch (error) {
             console.error('Gagal mengambil user:', error);
             throw error;
