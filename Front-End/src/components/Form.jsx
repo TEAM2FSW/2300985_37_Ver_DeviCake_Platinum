@@ -68,7 +68,7 @@ export default function Form({ onToggleForm }) {
       <div className="bg-white rounded-2xl shadow-2xl flex flex-col lg:flex-row w-full max-w-4xl">
         <div className="w-full lg:w-3/5 p-4 lg:p-10" style={signInSectionStyle}>
           <div className="text-left font-semibold">
-            DevviCake
+            DeviCake
           </div>
           <div className="py-8 lg:py-10">
             <h2 className="text-2xl lg:text-3xl font-bold text-purple-500 mb-2">Sign in to Account</h2>

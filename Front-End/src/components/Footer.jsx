@@ -3,7 +3,7 @@
 const Footer = () => {
     return (
       <footer className=" text-black py-4 text-center">
-        <p>&copy; {new Date().getFullYear()} Devvi Cakes</p>
+        <p>&copy; {new Date().getFullYear()} Devi Cakes</p>
       </footer>
     );
   };
