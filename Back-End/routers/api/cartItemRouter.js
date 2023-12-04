@@ -1,22 +1,23 @@
 const express = require("express");
 const cartItemRouter = express.Router();
-const CartItemController = require('../../controllers/cartItemController');
+const CartItemController = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/cartItemController');
 const cartItemController = new CartItemController();
+const checkToken = require("../../../../../binar/Ersan-Putra/devy-cake/middlewares/checkToken");
 
 // Route to add a new cart item
-cartItemRouter.post('/', cartItemController.addCartItem);
+cartItemRouter.post('/',checkToken, cartItemController.addCartItem);
 
 // Route to get a cart item by ID
-cartItemRouter.get('/:id', cartItemController.getCartItem);
+cartItemRouter.get('/:id',checkToken, cartItemController.getCartItem);
 
 // Route to update a cart item
-cartItemRouter.put('/:id', cartItemController.updateCartItem);
+cartItemRouter.put('/:id',checkToken, cartItemController.updateCartItem);
 
 // Route to delete a cart item
-cartItemRouter.delete('/:id', cartItemController.deleteCartItem);
+cartItemRouter.delete('/:id',checkToken, cartItemController.deleteCartItem);
 
 // Route to list all cart items for a specific cart
-cartItemRouter.get('/list/:userId', cartItemController.listCartItems);
-cartItemRouter.put('/:id/quantity', cartItemController.updateCartItemQuantity);
+cartItemRouter.get('/list/:userId',checkToken, cartItemController.listCartItems);
+cartItemRouter.put('/:id/quantity',checkToken, cartItemController.updateCartItemQuantity);
 
 module.exports = cartItemRouter;

@@ -1,4 +1,4 @@
-const { Order, OrderDetail, Payment, Cake, Address } = require("../models");
+const { Order, OrderDetail, Payment, Cake, Address, User } = require("../models");
 const PaymentService = require('./paymentService');
 const paymentService = new PaymentService();
 const OrderDetailService = require('./orderDetailService');
@@ -12,7 +12,24 @@ class OrderService {
 
     async getOrderAll() {
         try {
-            return await Order.findAll({ where: { active: true } });
+            return await Order.findAll({
+                where: { active: true },
+                include: [
+                    {
+                        model: OrderDetail,
+                        include: [{ model: Cake }]
+                    },
+                    {
+                        model: Payment
+                    },
+                    {
+                        model: Address
+                    },
+                    {
+                        model: User
+                    }
+                ]
+            });
         } catch (error) {
             console.error('Gagal mengambil data order:', error);
             throw error;
@@ -38,6 +55,7 @@ class OrderService {
           console.log("error saat menampilkan jumlah order");
         }
       }
+    
 
     async getOrderById(orderId) {
         try {

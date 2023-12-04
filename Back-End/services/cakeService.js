@@ -20,7 +20,7 @@ class CakeService {
 
     async getAllCakes() {
         try {
-            const cakes = await Cake.findAll();
+            const cakes = await Cake.findAll({ where: { active: true } });
             return cakes;
         } catch (error) {
             console.error('Error saat mengambil semua kue:', error);
@@ -32,22 +32,22 @@ class CakeService {
         try {
             // Check if cake_id is provided
             if (!cake_id) {
-                throw new Error('cake_id diperlukan untuk menghapus');
+                throw new Error('cake_id diperlukan untuk memperbarui status');
             }
-
-            // Deleting the cake with the given cake_id
-            const result = await Cake.destroy({
+    
+            // Updating the active status of the cake with the given cake_id to false
+            const result = await Cake.update({ active: false }, {
                 where: { cake_id }  // Use cake_id instead of id
             });
-
-            // You can also check if a cake was actually deleted and throw an error or return a different response if not
-            if (result === 0) {
-                throw new Error('Tidak ada kue yang dihapus dengan cake_id tersebut');
+    
+            // You can also check if a cake was actually updated and throw an error or return a different response if not
+            if (result[0] === 0) {
+                throw new Error('Tidak ada kue yang diperbarui dengan cake_id tersebut');
             }
-
-            return { message: 'Kue berhasil dihapus' };
+    
+            return { message: 'Status kue berhasil diperbarui menjadi tidak aktif' };
         } catch (error) {
-            console.error('Error saat menghapus kue:', error);
+            console.error('Error saat memperbarui status kue:', error);
             throw error;
         }
     }

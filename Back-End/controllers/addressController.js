@@ -37,7 +37,7 @@ class AddressController{
     async getUserAddress(req, res) {
         try {
             const { userId } = req.params;
-            const address = await addressService.getAllAddressByUserId(userId);
+            const address = await addressService.getAddressByUserId(userId);
             res.status(200).json({
                 status: "success",
                 data: address

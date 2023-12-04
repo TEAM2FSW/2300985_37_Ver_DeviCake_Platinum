@@ -33,7 +33,22 @@ class AddressService {
   async getAddressById(address_id) {
     try {
       const address = await Address.findAll({
-        where: { user_id: address_id }        
+        where: { user_id: address_id, active: true }        
+      });
+      if (!address) {
+        throw new Error("Address tidak ditemukan");
+      }
+      return address;
+    } catch (error) {
+      console.error("Error saat mengambil detail address:", error);
+      throw error;
+    }
+  }
+
+  async getAddressByUserId(userId) {
+    try {
+      const address = await Address.findAll({
+        where: { user_id: userId, active: true }        
       });
       if (!address) {
         throw new Error("Address tidak ditemukan");
@@ -54,8 +69,9 @@ class AddressService {
       if (!address) {
         throw new Error("Address tidak ditemukan");
       }
-
-      await address.destroy();
+        address.active = false;
+        await address.save();
+      //await address.destroy();
       return { message: "Address deleted successfully" };
     } catch (error) {
       console.error("Error saat menghapus Address:", error);

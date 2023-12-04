@@ -65,6 +65,38 @@ class OrderController {
         }
     }
 
+    async getOrderDetails(req, res) {
+        try {
+            const { orderId } = req.params;
+            const order = await orderService.getOrderById(orderId);
+            res.status(200).json({
+                status: "success",
+                data: order
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: "failed",
+                message: error.message,
+            });
+        }
+    }
+
+    async getUserOrders(req, res) {
+        try {
+            const { userId } = req.params;
+            const orders = await orderService.getAllOrdersByUserId(userId);
+            res.status(200).json({
+                status: "success",
+                data: orders
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: "failed",
+                message: error.message,
+            });
+        }
+    }
+
     // Controller untuk membuat order baru
     async createOrder(req, res) {
         try {
