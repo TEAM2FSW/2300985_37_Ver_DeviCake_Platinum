@@ -20,6 +20,21 @@ class UserController {
     }
 }
 
+async getCountUser(req, res) {
+  try {
+      const users = await userService.getCountUser();
+      res.status(200).json({
+          status: "success",
+          data: users
+      });
+  } catch (error) {
+      res.status(400).json({
+          status: "failed",
+          message: error.message,
+      });
+  }
+}
+
   async createUser(req, res) {
     try {
       const { email, password, full_name, phone_number, role, profile_image, active } =

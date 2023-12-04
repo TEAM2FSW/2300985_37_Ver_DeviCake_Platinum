@@ -18,6 +18,21 @@ class OrderController {
         }
     }
 
+    async getCountOrder(req, res) {
+        try {
+            const orders = await orderService.getCountOrder();
+            res.status(200).json({
+                status: "success",
+                data: orders
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: "failed",
+                message: error.message,
+            });
+        }
+      }
+
     async getOrderDetails(req, res) {
         try {
             const { orderId } = req.params;

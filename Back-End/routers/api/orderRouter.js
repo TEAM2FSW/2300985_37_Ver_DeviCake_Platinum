@@ -5,6 +5,7 @@ const orderController = new OrderController();
 
 
 orderRouter.get('/', orderController.getOrderAll);
+orderRouter.get('/count', orderController.getCountOrder);
 orderRouter.post('/', orderController.createOrder);
 orderRouter.put('/:orderId/status', orderController.updateOrderStatus);
 orderRouter.put('/status', orderController.updateOrderStatusByInvoice);

@@ -19,6 +19,26 @@ class OrderService {
         }
     }
 
+    async getCountOrder() {
+        try {
+          const order = await Order.count();
+          return { message: "Jumlah order berhasil di munculkan.", order };
+        } catch (error) {
+          console.log("error saat menampilkan jumlah order");
+        }
+      }
+
+      async getCountOrderIncome() {
+        try {
+          const order = await Order.count({
+        //    where: status: 'Pending'
+          });
+          return { message: "Jumlah order berhasil di munculkan.", order };
+        } catch (error) {
+          console.log("error saat menampilkan jumlah order");
+        }
+      }
+
     async getOrderById(orderId) {
         try {
             const order = await Order.findByPk(orderId, {
