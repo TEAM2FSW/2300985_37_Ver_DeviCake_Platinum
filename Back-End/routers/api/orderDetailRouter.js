@@ -1,8 +1,8 @@
 const express = require("express");
 const orderDetailRouter = express.Router();
-const OrderDetailController  = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/orderDetailController');
+const OrderDetailController  = require('../../controllers/orderDetailController');
 const orderDetailController  = new OrderDetailController();
-const checkToken = require("../../../../../binar/Ersan-Putra/devy-cake/middlewares/checkToken");
+const checkToken = require("../../middlewares/checkToken");
 
 
 orderDetailRouter.post('/', orderDetailController.addOrderDetail);

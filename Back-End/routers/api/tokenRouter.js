@@ -1,6 +1,6 @@
 const express = require("express");
 const tokenRouter = express.Router();
-const TokenController = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/tokenController');
+const TokenController = require('../../controllers/tokenController');
 const tokenController = new TokenController();
 
 tokenRouter.post('/', tokenController.addToken);

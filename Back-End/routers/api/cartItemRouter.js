@@ -1,8 +1,8 @@
 const express = require("express");
 const cartItemRouter = express.Router();
-const CartItemController = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/cartItemController');
+const CartItemController = require('../../controllers/cartItemController');
 const cartItemController = new CartItemController();
-const checkToken = require("../../../../../binar/Ersan-Putra/devy-cake/middlewares/checkToken");
+const checkToken = require("../../middlewares/checkToken");
 
 // Route to add a new cart item
 cartItemRouter.post('/',checkToken, cartItemController.addCartItem);

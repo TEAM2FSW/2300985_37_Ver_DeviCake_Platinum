@@ -1,6 +1,6 @@
 const express = require('express');
-const uploader = require('../../../../../binar/Ersan-Putra/devy-cake/middlewares/uploader');
-const uploadCloudinary = require('../../../../../binar/Ersan-Putra/devy-cake/libs/upload-cloudinary')
+const uploader = require('../../middlewares/uploader');
+const uploadCloudinary = require('../../libs/upload-cloudinary')
 const uploadRouter = express.Router()
 const multer = require('multer');
 
@@ -31,7 +31,7 @@ uploadRouter.post('/upload', uploader.single('file'), async (req, res, next) => 
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const imageController = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/imageController');
+const imageController = require('../../controllers/imageController');
 
 uploadRouter.post('/upload/profile', uploader.single('file'), imageController.uploadImageApi);
 

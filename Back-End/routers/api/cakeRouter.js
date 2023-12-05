@@ -1,8 +1,8 @@
 const express = require("express");
 const cakeRouter = express.Router();
-const CakeController   = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/cakeController');
+const CakeController   = require('../../controllers/cakeController');
 const cakeController  = new CakeController();
-const checkToken = require("../../../../../binar/Ersan-Putra/devy-cake/middlewares/checkToken");
+const checkToken = require("../../middlewares/checkToken");
 
 /**
  * @swagger

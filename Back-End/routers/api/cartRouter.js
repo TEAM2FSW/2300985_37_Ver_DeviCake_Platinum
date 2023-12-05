@@ -1,6 +1,6 @@
 const express = require("express");
 const cartRouter = express.Router();
-const CartController = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/cartController');
+const CartController = require('../../controllers/cartController');
 const cartController = new CartController();
 
 

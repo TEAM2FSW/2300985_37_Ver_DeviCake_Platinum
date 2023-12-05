@@ -1,8 +1,8 @@
 const express = require("express");
 const orderRouter = express.Router();
-const OrderController = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/orderController');
+const OrderController = require("../../controllers/orderController");
 const orderController = new OrderController();
-const checkToken = require("../../../../../binar/Ersan-Putra/devy-cake/middlewares/checkToken");
+const checkToken = require("../../middlewares/checkToken");
 
 /**
  * @swagger

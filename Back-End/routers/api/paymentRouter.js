@@ -1,8 +1,8 @@
 const express = require("express");
 const paymentRouter = express.Router();
-const PaymentController  = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/paymentController');
+const PaymentController  = require('../../controllers/paymentController');
 const paymentController = new PaymentController ();
-const checkToken = require("../../../../../binar/Ersan-Putra/devy-cake/middlewares/checkToken");
+const checkToken = require("../../middlewares/checkToken");
 
 
 paymentRouter.post('/',checkToken, paymentController.createPayment);
