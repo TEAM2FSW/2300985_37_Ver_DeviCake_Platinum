@@ -11,6 +11,8 @@ const checkToken = require("../../middlewares/checkToken");
  *      summary: Get all cakes
  *      description: Retrieve a list of all cakes
  *      tags: [Cakes]
+ *      security:
+ *        - BearerAuth: []
  *      responses:
  *          200:
  *              description: List of all cakes
@@ -70,6 +72,8 @@ cakeRouter.get('/', cakeController.getAllCakes);
  *      summary: Add a new cake
  *      description: Create a new cake item
  *      tags: [Cakes]
+ *      security:
+ *        - BearerAuth: []
  *      requestBody:
  *          required: true
  *          content:
@@ -165,6 +169,8 @@ cakeRouter.post('/',checkToken, cakeController.addCake);
  *          description: ID of the cake to delete or update
  *          schema:
  *            type: integer
+ *      security:
+ *        - BearerAuth: []
  *      responses:
  *          200:
  *              description: Cake status updated to inactive successfully

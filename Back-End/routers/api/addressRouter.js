@@ -11,6 +11,8 @@ const addressController = new AddressController();
  *      summary: Get all addresses
  *      description: Retrieve a list of all addresses
  *      tags: [Addresses]
+ *      security:
+ *        - BearerAuth: []
  *      responses:
  *          200:
  *              description: List of all addresses
@@ -61,6 +63,8 @@ addressRouter.get('/',checkToken, addressController.getAddressAll);
  *      summary: Get address by user ID
  *      description: Retrieve address details for a specific user ID
  *      tags: [Addresses]
+ *      security:
+ *        - BearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id
@@ -117,6 +121,8 @@ addressRouter.get('/',checkToken, addressController.getAddressAll);
  *      summary: Add a new address
  *      description: Create a new address for a user
  *      tags: [Addresses]
+ *      security:
+ *        - BearerAuth: []
  *      requestBody:
  *          required: true
  *          content:
@@ -189,6 +195,8 @@ addressRouter.post('/',checkToken, addressController.createAddress);
  *      summary: Update an existing address
  *      description: Update address details for a specific address ID
  *      tags: [Addresses]
+ *      security:
+ *        - BearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id
@@ -282,6 +290,8 @@ addressRouter.put('/:address_id',checkToken, addressController.updateAddress);
  *          description: ID of the address to delete
  *          schema:
  *            type: integer
+ *      security:
+ *        - BearerAuth: []
  *      responses:
  *          200:
  *              description: Address deleted successfully

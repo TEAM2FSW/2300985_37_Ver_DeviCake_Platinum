@@ -11,6 +11,8 @@ const checkToken = require("../../middlewares/checkToken");
  *      summary: Get all orders
  *      description: Retrieve a list of all orders
  *      tags: [Orders]
+ *      security:
+ *        - BearerAuth: []
  *      responses:
  *          200:
  *              description: List of all orders
@@ -90,6 +92,8 @@ orderRouter.get('/', orderController.getOrderAll);
  *          description: ID of the order to retrieve
  *          schema:
  *            type: integer
+ *      security:
+ *        - BearerAuth: []
  *      responses:
  *          200:
  *              description: Order details for the specified ID
@@ -176,6 +180,8 @@ orderRouter.get('/:orderId',checkToken, orderController.getOrderDetails);
  *          description: User ID to retrieve orders for
  *          schema:
  *            type: integer
+ *      security:
+ *        - BearerAuth: []
  *      responses:
  *          200:
  *              description: List of orders for the specified user
@@ -239,6 +245,8 @@ orderRouter.get('/user/:userId',checkToken, orderController.getUserOrders);
  *      summary: Create a new order
  *      description: Create a new order with the given details
  *      tags: [Orders]
+ *      security:
+ *        - BearerAuth: []
  *      requestBody:
  *          required: true
  *          content:
