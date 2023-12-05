@@ -1,6 +1,6 @@
 const express = require('express');
-const uploader = require('../../../../../binar/Ersan-Putra/devy-cake/middlewares/uploader');
-const uploadCloudinary = require('../../../../../binar/Ersan-Putra/devy-cake/libs/upload-cloudinary')
+const uploader = require('../../middlewares/uploader');
+const uploadCloudinary = require('../../libs/upload-cloudinary')
 const uploadRouter = express.Router()
 const multer = require('multer');
 

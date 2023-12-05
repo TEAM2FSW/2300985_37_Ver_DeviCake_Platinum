@@ -1,8 +1,8 @@
 const express = require("express");
 const userRouter = express.Router();
-const UserController = require('../../../../../binar/Ersan-Putra/devy-cake/controllers/userController');
+const UserController = require('../../controllers/userController');
 const userController = new UserController();
-const checkToken = require("../../../../../binar/Ersan-Putra/devy-cake/middlewares/checkToken");
+const checkToken = require("../../middlewares/checkToken");
 
 
 /**

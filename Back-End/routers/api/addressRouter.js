@@ -1,7 +1,7 @@
 const express = require("express");
-const AddressController = require("../../../../../binar/Ersan-Putra/devy-cake/controllers/addressController");
+const AddressController = require("../../controllers/addressController");
 const addressRouter = express.Router();
-const checkToken = require("../../../../../binar/Ersan-Putra/devy-cake/middlewares/checkToken");
+const checkToken = require("../../middlewares/checkToken");
 
 const addressController = new AddressController();
 /**

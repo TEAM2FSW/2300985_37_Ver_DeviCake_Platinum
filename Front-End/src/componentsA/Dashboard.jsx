@@ -3,7 +3,7 @@ import { FaBox, FaRegUser } from 'react-icons/fa';
 import { MdLocalShipping, MdDashboard } from "react-icons/md";
 import { TbReportSearch } from "react-icons/tb";
 import Link from 'next/link';
-import { getCountOrders, getCountUsers } from '@/rest/api';
+import { getCountOrders } from '@/rest/api';
 
 const Dashboard = () => {
   const [users, setUsers] = useState([])
@@ -13,7 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await getCountUsers();
+        const data = await getCountOrders();
         console.log('Fetched Users:', data);
         setUsers(data);
       } catch (error) {
