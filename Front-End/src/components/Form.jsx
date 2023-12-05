@@ -7,12 +7,13 @@ import url from 'url'; // Import the url library
 import { getCookie, setCookie } from "@/utils/cookies";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const signInBackgroundImageUrl = 'https://images.unsplash.com/photo-1599785209707-a456fc1337bb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGNha2V8ZW58MHx8MHx8fDA%3D';
 const backgroundImageUrl = 'https://images.unsplash.com/photo-1622090860720-c4a77e146284?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80';
 
-export default function Form({ onToggleForm }) {
+export default function Form({ onToggleForm, onToggleAdminForm }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -42,10 +43,15 @@ export default function Form({ onToggleForm }) {
         setCookie("userData", JSON.stringify(isSuccess.data), {
             expires: 1
         })
-        
-        
-        alert("LOGIN BERHASIL !!!");
-        router.reload("/");
+        //alert("LOGIN BERHASIL !!!");
+        toast.success("LOGIN BERHASIL !!!", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 5000
+        });
+        router.reload();
+        setTimeout(() => {
+            router.push('/home');
+        }, 1000);
     }
 
   }
@@ -68,7 +74,7 @@ export default function Form({ onToggleForm }) {
       <div className="bg-white rounded-2xl shadow-2xl flex flex-col lg:flex-row w-full max-w-4xl">
         <div className="w-full lg:w-3/5 p-4 lg:p-10" style={signInSectionStyle}>
           <div className="text-left font-semibold">
-            DeviCake
+            DevviCake
           </div>
           <div className="py-8 lg:py-10">
             <h2 className="text-2xl lg:text-3xl font-bold text-purple-500 mb-2">Sign in to Account</h2>
@@ -123,11 +129,12 @@ export default function Form({ onToggleForm }) {
                 <a href="#" className="text-xs">Forgot Password?</a>
               </div>
               <button
-                className="border-2 border-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white text-white"
+                className="border-2 border-green text-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white"
                 type="submit"
               >
                 Sign In
               </button>
+              
             </div>
             </form>
           </div>
@@ -144,8 +151,10 @@ export default function Form({ onToggleForm }) {
           <a href="#" className="border-2 border-white rounded-full px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white" onClick={onToggleForm}>
             Sign Up
           </a>
+        
         </div>
       </div>
+     
     </main>
   );
 }

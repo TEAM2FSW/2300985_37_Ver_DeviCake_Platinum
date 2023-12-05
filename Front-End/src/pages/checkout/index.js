@@ -3,6 +3,7 @@ import DataForm from '@/components/DataForm'
 import Navbar from '@/components/Navbar';
 import { getCookie, setCookie } from "@/utils/cookies";
 import { useRouter } from 'next/router';
+import { ToastContainer } from 'react-toastify';
 
 const CheckoutPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Add this line
@@ -17,6 +18,7 @@ const CheckoutPage = () => {
   }, [router]);
   return (
     <div>
+      <ToastContainer />
       <Navbar/>
       <DataForm/>
     </div>

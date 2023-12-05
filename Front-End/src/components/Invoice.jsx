@@ -178,16 +178,23 @@ function addHoursToDate(isoDateString, hoursToAdd) {
               <h4 className="text-lg text-gray-700 font-semibold mb-2">Detail Kue</h4>
               {order.OrderDetails.map((detail) => (
                 <div key={detail.order_detail_id} className="flex items-center mb-4">
-                  <img 
-                    src={detail.Cake.image} 
-                    alt={detail.Cake.name} 
-                    className="w-20 h-20 object-cover mr-4 rounded"
-                  />
-                  <div className="text-gray-900 text-lg">
-                    <p>{detail.Cake.name} (Qty: {detail.quantity})</p>
-                    <p>Harga: {formatRupiah(detail.Cake.price)}</p>
-                    <p>Subtotal: {formatRupiah(detail.quantity * detail.Cake.price)}</p>
-                  </div>
+                  {
+                            detail.Cake 
+                              ? <>
+                                  <img 
+                                      src={detail.Cake.image} 
+                                      alt={detail.Cake.name} 
+                                      className="w-20 h-20 object-cover mr-4 rounded"
+                                    />
+                                    <div className="text-gray-900 text-lg">
+                                      <p>{detail.Cake.name} (Qty: {detail.quantity})</p>
+                                      <p>Harga: {formatRupiah(detail.Cake.price)}</p>
+                                      <p>Subtotal: {formatRupiah(detail.quantity * detail.Cake.price)}</p>
+                                    </div>
+                                </>
+                              : null 
+                    }
+                  
                 </div>
               ))}
             </div>

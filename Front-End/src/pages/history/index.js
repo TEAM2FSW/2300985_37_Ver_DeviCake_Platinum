@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import History from '@/components/History';
-import Navbar from '@/components/Navbar';
+import Navbar2 from '@/components/Navbar2';
 import { getCookie, setCookie } from "@/utils/cookies";
 import { useRouter } from 'next/router';
 
@@ -18,7 +18,7 @@ const HistoryPage = () => {
   }, [router]);
   return (
     <div>
-      <Navbar/>
+      <Navbar2/>
       <History/>
     </div>
   );

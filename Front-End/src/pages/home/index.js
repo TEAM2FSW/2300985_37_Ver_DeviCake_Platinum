@@ -8,7 +8,7 @@ import Food from '@/components/Food';
 import ShoppingCart from '@/components/ShoppingCart';
 import { getCookie, setCookie } from "@/utils/cookies";
 import { useRouter } from 'next/router';
-
+import { ToastContainer } from 'react-toastify';
 
 export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -49,6 +49,7 @@ export default function Home() {
 
   return (
     <div>
+      <ToastContainer />
       {isAuthenticated && ( <Navbar toggleCart={() => setIsCartOpen(!isCartOpen)} /> )}
       {isAuthenticated && ( <Hero />)}
       {isAuthenticated && ( <HeadlineCards />)}
@@ -63,4 +64,3 @@ export default function Home() {
     </div>
   );
 }
-

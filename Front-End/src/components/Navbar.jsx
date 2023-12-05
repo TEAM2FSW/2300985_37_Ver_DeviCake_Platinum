@@ -25,7 +25,7 @@ const Navbar = ({ toggleCart }) => {
           <AiOutlineMenu size={30} />
         </div>
         <h1 className='text-2xl sm:text-3xl lg:text-4xl px-2 hidden md:block'>
-          Devi <span className='font-bold'>Cakes</span>
+          Devvi <span className='font-bold'>Cakes</span>
         </h1>
         <div className='hidden lg:flex items-center bg-gray-200 rounded-full p-1 text-[14px]'>
           <p className='bg-black text-white rounded-full p-2'>Delivery</p>
@@ -88,48 +88,48 @@ const Navbar = ({ toggleCart }) => {
           className='absolute right-4 top-4 cursor-pointer'
         />
         <h2 className='text-2xl p-4'>
-          Devi <span className='font-bold'>Cakes</span>
+          Devvi <span className='font-bold'>Cakes</span>
         </h2>
         <nav>
           <ul className='flex flex-col p-4 text-gray-800'>
             <li className='text-xl py-4 flex'>
               <Link href="/home">
-
-                <MdHome size={25} className='mr-4' /> Home
-
+              
+                  <MdHome size={25} className='mr-4' /> Home
+                
               </Link>
             </li>
             <li className='text-xl py-4 flex'>
               <Link href="/orders">
-
-                <TbTruckDelivery size={25} className='mr-4' /> Orders
-
+              
+                  <TbTruckDelivery size={25} className='mr-4' /> Orders
+                
               </Link>
             </li>
             <li className='text-xl py-4 flex'>
               <Link href="/favorites">
-
-                <MdFavorite size={25} className='mr-4' /> Favorites
-
+              
+                  <MdFavorite size={25} className='mr-4' /> Favorites
+                
               </Link>
             </li>
             <li className='text-xl py-4 flex'>
               <Link href="/wallet">
-
-                <FaWallet size={25} className='mr-4' /> Wallet
-
+              
+                  <FaWallet size={25} className='mr-4' /> Wallet
+                
               </Link>
             </li>
             <li className='text-xl py-4 flex'>
               <Link href="/history">
-
-                <MdHistory size={25} className='mr-4' /> History
-
+              
+                  <MdHistory size={25} className='mr-4' /> History
+                
               </Link>
             </li>
           </ul>
 
-          <button onClick={logout} >Log Out</button>
+          <button  onClick={logout} >Log Out</button>
         </nav>
       </div>
     </div>
