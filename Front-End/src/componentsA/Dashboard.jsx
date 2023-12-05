@@ -1,10 +1,43 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBox, FaRegUser } from 'react-icons/fa';
 import { MdLocalShipping, MdDashboard } from "react-icons/md";
 import { TbReportSearch } from "react-icons/tb";
 import Link from 'next/link';
+import { getCountOrders, getCountUsers } from '@/rest/api';
 
 const Dashboard = () => {
+  const [users, setUsers] = useState([])
+  const [orders, setOrders] = useState([])
+
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const data = await getCountUsers();
+        console.log('Fetched Users:', data);
+        setUsers(data);
+      } catch (error) {
+        console.error('Error fetching Users:', error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const data = await getCountOrders();
+        console.log('Fetched Orders:', data);
+        setOrders(data);
+      } catch (error) {
+        console.error('Error fetching Orders:', error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
   useEffect(() => {
     const button = document.getElementById('sidebarButton');
     const sidebar = document.getElementById('sidebar');
@@ -68,17 +101,17 @@ const Dashboard = () => {
               </button>
             </div>
             <div id="menu" className="flex flex-col space-y-2">
-        <Link href="/" className="text-gray-600 hover:text-teal-500">
-          <MdDashboard className="inline-block mr-2" />
-          Dashboard
-        </Link>
-        <Link href="/products" className="text-gray-600 hover:text-teal-500">
-          <FaBox className="inline-block mr-2" /> Product
-        </Link>
-             
-        <Link href="/order" className="text-gray-600 hover:text-teal-500">
-          <MdLocalShipping className="inline-block mr-2" /> Order
-        </Link>
+              <Link href="/" className="text-gray-600 hover:text-teal-500">
+                <MdDashboard className="inline-block mr-2" />
+                Dashboard
+              </Link>
+              <Link href="/products" className="text-gray-600 hover:text-teal-500">
+                <FaBox className="inline-block mr-2" /> Product
+              </Link>
+
+              <Link href="/order" className="text-gray-600 hover:text-teal-500">
+                <MdLocalShipping className="inline-block mr-2" /> Order
+              </Link>
               <Link href="/report" className="text-gray-600 hover:text-teal-500">
                 <TbReportSearch className="inline-block mr-2" />
                 Reports
@@ -109,7 +142,7 @@ const Dashboard = () => {
                     </div>
 
                     <div className="mx-5">
-                      <h4 className="text-2xl font-semibold text-gray-700">111111</h4>
+                      <h4 className="text-2xl font-semibold text-gray-700">{users.user}</h4>
                       <div className="text-gray-500">Pengguna</div>
                     </div>
                   </div>
@@ -125,7 +158,7 @@ const Dashboard = () => {
                     </div>
 
                     <div className="mx-5">
-                      <h4 className="text-2xl font-semibold text-gray-700">11111111</h4>
+                      <h4 className="text-2xl font-semibold text-gray-700">{orders.order}</h4>
                       <div className="text-gray-500">Total Orders</div>
                     </div>
                   </div>
@@ -160,7 +193,7 @@ const Dashboard = () => {
                     <thead>
                       <tr>
                         <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                         Product
+                          Product
                         </th>
                         <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                           Product
