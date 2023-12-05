@@ -2,7 +2,7 @@ const express = require("express");
 const orderRouter = express.Router();
 const OrderController = require('../../controllers/orderController');
 const orderController = new OrderController();
-const checkToken = require("../../middlewares/checkToken");
+const checkToken = require("../../middle/checkToken");
 
 /**
  * @swagger
