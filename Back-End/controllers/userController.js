@@ -87,6 +87,37 @@ class UserController {
         }
     }
 
+    async loginAdmin(req, res) {
+        try {
+            const user = await userService.login(req.body.email, req.body.password);
+
+            // Membuat JWT token setelah pengguna berhasil login
+            const accessToken = createTokens(user);
+
+            const objekUser = {
+                full_name: user.full_name,
+                user_id: user.user_id,
+                email: user.email,
+                phone_number: user.phone_number,
+                profile_image: user.profile_image,
+                role: user.role,
+                accessToken: accessToken,
+      
+              };
+            
+            res.status(201).json({
+                status: 'success',
+                data: objekUser,
+                message: 'Login Berhasil!'
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: 'error',
+                message: error.message
+            });
+        }
+    }
+
     async deleteUser(req, res) {
         try {
             const userId = req.params.id; // Mendapatkan ID pengguna dari parameter URL

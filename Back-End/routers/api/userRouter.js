@@ -240,7 +240,7 @@ userRouter.post('/login', userController.login);
 
 userRouter.delete('/:id', userController.deleteUser);
 
-
+userRouter.post('/admin/login', userController.loginAdmin);
 userRouter.get('/', userController.getUserAll);
 userRouter.get('/count', userController.getCountUser);
 

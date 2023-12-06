@@ -31,7 +31,7 @@ class UserService {
             }
 
             // Cek keberadaan email
-            const existingUser = await User.findOne({ where: { email: userData.email, active: true } });
+            const existingUser = await User.findOne({ where: { email: userData.email } });
             if (existingUser) {
                 throw new Error('Email sudah digunakan');
             }
@@ -43,13 +43,12 @@ class UserService {
             const user = await User.create({
                 ...userData,
                 role: "USER",
-                active:true,
                 password: hashedPassword
             });
 
             return user;
         } catch (error) {
-            //console.error('Error saat membuat pengguna:', error);
+            console.error('Error saat membuat pengguna:', error);
             throw error;
         }
     }
@@ -57,7 +56,28 @@ class UserService {
     async login(email, password) {
         // Cari pengguna berdasarkan email
         const user = await User.findOne({
-          where: { email: email, active: true }
+          where: { email: email, active: true, role: "ADMIN" }
+        });
+    
+        if (!user) {
+          throw new Error("Pengguna tidak ditemukan.");
+        }
+    
+        // Verifikasi password
+        const validPassword = await this.checkPassword(password, user.password);
+    
+        if (!validPassword) {
+          throw new Error("Password salah.");
+        }
+    
+        // Jika semua verifikasi sukses, kembalikan data pengguna
+        return user;
+      }
+
+      async loginAdmin(email, password) {
+        // Cari pengguna berdasarkan email
+        const user = await User.findOne({
+          where: { email: email, active: true}
         });
     
         if (!user) {
@@ -99,8 +119,6 @@ class UserService {
             throw error;
         }
     }
-
-    
 
 
     // ... (kode lainnya)
