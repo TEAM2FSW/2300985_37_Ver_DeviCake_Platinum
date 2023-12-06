@@ -13,7 +13,7 @@ class CakeService {
 
             return cake;
         } catch (error) {
-            console.error('Error saat menambahkan kue:', error);
+            //console.error('Error saat menambahkan kue:', error);
             throw error;
         }
     }

@@ -31,7 +31,7 @@ class UserService {
             }
 
             // Cek keberadaan email
-            const existingUser = await User.findOne({ where: { email: userData.email } });
+            const existingUser = await User.findOne({ where: { email: userData.email, active: true } });
             if (existingUser) {
                 throw new Error('Email sudah digunakan');
             }
@@ -43,12 +43,13 @@ class UserService {
             const user = await User.create({
                 ...userData,
                 role: "USER",
+                active:true,
                 password: hashedPassword
             });
 
             return user;
         } catch (error) {
-            console.error('Error saat membuat pengguna:', error);
+            //console.error('Error saat membuat pengguna:', error);
             throw error;
         }
     }
@@ -98,6 +99,8 @@ class UserService {
             throw error;
         }
     }
+
+    
 
 
     // ... (kode lainnya)

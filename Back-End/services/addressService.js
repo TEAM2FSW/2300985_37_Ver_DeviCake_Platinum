@@ -74,7 +74,7 @@ class AddressService {
       //await address.destroy();
       return { message: "Address deleted successfully" };
     } catch (error) {
-      console.error("Error saat menghapus Address:", error);
+      //console.error("Error saat menghapus Address:", error);
       throw error;
     }
   }
