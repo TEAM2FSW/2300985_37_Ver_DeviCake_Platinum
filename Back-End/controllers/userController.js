@@ -89,7 +89,7 @@ class UserController {
 
     async loginAdmin(req, res) {
         try {
-            const user = await userService.login(req.body.email, req.body.password);
+            const user = await userService.loginAdmin(req.body.email, req.body.password);
 
             // Membuat JWT token setelah pengguna berhasil login
             const accessToken = createTokens(user);
