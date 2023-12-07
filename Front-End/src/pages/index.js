@@ -39,9 +39,6 @@ export default function Home() {
       {showAdminForm && (
         <AdminLogin />
       )}
-      <a href="#" className=" px-8 py-2 inline-block font-semibold hover:bg-purple-600 hover:text-white" onClick={handleToggleAdminForm}>
-        Admin?
-      </a>
     </div>
   );
 }
