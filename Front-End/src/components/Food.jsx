@@ -4,7 +4,7 @@ import ProductDetail from './ProductDetail';
 import { getCakes } from '@/rest/api';
 import { HiOutlineArrowCircleRight } from 'react-icons/hi';
 import { MdClose } from 'react-icons/md';
-
+import { toast } from 'react-toastify';
 
 const Food = () => {
   const [foods, setFoods] = useState([]);
