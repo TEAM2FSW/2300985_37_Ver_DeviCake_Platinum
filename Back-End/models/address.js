@@ -27,7 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     recipient_name: DataTypes.STRING,
     address: DataTypes.TEXT,
     phone_number: DataTypes.STRING,
-    active: DataTypes.BOOLEAN
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true // atau false, tergantung kebutuhan Anda
+    }
   }, {
     sequelize,
     modelName: 'Address',

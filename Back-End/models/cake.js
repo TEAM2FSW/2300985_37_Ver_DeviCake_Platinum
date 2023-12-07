@@ -28,7 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT,
     price: DataTypes.DECIMAL,
     image: DataTypes.STRING,
-    active: DataTypes.BOOLEAN
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true // atau false, tergantung kebutuhan Anda
+    }
   }, {
     sequelize,
     modelName: 'Cake',

@@ -56,7 +56,7 @@ class UserService {
     async login(email, password) {
         // Cari pengguna berdasarkan email
         const user = await User.findOne({
-          where: { email: email, active: true, role: "ADMIN" }
+          where: { email: email, active: true, role: "USER" }
         });
     
         if (!user) {
@@ -77,7 +77,7 @@ class UserService {
       async loginAdmin(email, password) {
         // Cari pengguna berdasarkan email
         const user = await User.findOne({
-          where: { email: email, active: true}
+          where: { email: email, active: true, role: "ADMIN"}
         });
     
         if (!user) {
