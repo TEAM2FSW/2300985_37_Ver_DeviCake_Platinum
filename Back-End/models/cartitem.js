@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      CartItem.belongsTo(models.Cart, { foreignKey: 'cart_id' });
+      CartItem.belongsTo(models.User, { foreignKey: 'user_id' });
       CartItem.belongsTo(models.Cake, { foreignKey: 'cake_id' });
 
     }
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       allowNull: false,
     },
-    cart_id: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER,
     cake_id: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     sub_total: DataTypes.DECIMAL

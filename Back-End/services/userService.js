@@ -112,6 +112,7 @@ class UserService {
             await User.update({ active: false },{
                 where: { user_id: userId }
             });
+            
 
             return { message: "Pengguna berhasil dihapus." };
         } catch (error) {
