@@ -21,7 +21,10 @@ module.exports = {
           },
           servers: [
             {
-                url: "http://localhost:" + process.env.PORT,
+              url: "https://api.devicake.shop",
+           },
+            {
+                url: "http://localhost:5000" + process.env.PORT,
             },
             {
                 url: "https://creepy-puce-tuna.cyclic.app",
