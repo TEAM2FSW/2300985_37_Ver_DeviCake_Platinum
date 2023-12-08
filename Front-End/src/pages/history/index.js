@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import History from '@/components/History';
-import Navbar2 from '@/components/Navbar2';
 import { getCookie, setCookie } from "@/utils/cookies";
 import { useRouter } from 'next/router';
+import Navbar from '@/components/Navbar';
 
 const HistoryPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Add this line
@@ -18,7 +18,7 @@ const HistoryPage = () => {
   }, [router]);
   return (
     <div>
-      <Navbar2/>
+      <Navbar/>
       <History/>
     </div>
   );
