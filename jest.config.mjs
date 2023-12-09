@@ -1,12 +1,12 @@
-import nextJest from 'next/jest.js';
+// jest.config.js or next.config.js
+const nextJest = require('next/jest');
 
-const createJestConfig = nextJest({
-  dir: './front-end',
-});
+module.exports = nextJest({
+  // ... other Next.js Jest configuration options
 
-const config = {
+  // Add or modify the transform configuration to handle JSX
+
+
+  // Ensure setupFilesAfterEnv is present
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  testEnvironment: 'jest-environment-jsdom',
-};
-
-export default createJestConfig(config);
+});

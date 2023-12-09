@@ -17,7 +17,7 @@ module.exports = {
     }
   },
   "test": {
-    "username": "postgres",
+    "username": "testing",
     "password": "admin",
     "database": "db_devvi",
     "host": "127.0.0.1",

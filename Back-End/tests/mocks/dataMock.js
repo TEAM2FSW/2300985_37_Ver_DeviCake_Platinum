@@ -1,6 +1,6 @@
 module.exports = {
     registerDataMock : {
-        email: "ersancakra11@gmail.com",
+        email: "ersancakra111@gmail.com",
         password: "admin",
         full_name: "Ersan Putra N",
         phone_number: "1234567890",
