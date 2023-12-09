@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     active: {
       type: DataTypes.BOOLEAN,
       defaultValue: true // atau false, tergantung kebutuhan Anda
-    }
+    },
+    category: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Cake',
