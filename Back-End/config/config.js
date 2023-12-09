@@ -17,11 +17,19 @@ module.exports = {
     }
   },
   "test": {
-    "username": "testing",
-    "password": "admin",
-    "database": "db_devvi",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": process.env.TEST_POSTGRES_USER,
+    "password": process.env.TEST_POSTGRES_PASSWORD,
+    "database": process.env.TEST_POSTGRES_DATABASE,
+    "host": process.env.TEST_POSTGRES_HOST,
+    "dialect": "postgres",
+    "timezone": "+07:00",
+    "dialectOptions": {
+      "ssl": {
+        "require": true, 
+        "rejectUnauthorized": false
+      },
+      "sslmode": "require"
+    }
   },
   "production": {
   "username": process.env.POSTGRES_USER,

@@ -48,7 +48,7 @@ class UserService {
 
             return user;
         } catch (error) {
-            console.error('Error saat membuat pengguna:', error);
+            //console.error('Error saat membuat pengguna:', error);
             throw error;
         }
     }
@@ -121,8 +121,27 @@ class UserService {
         }
     }
 
+    async deleteUserPermanen(userId) {
+      try {
+          // Cari pengguna berdasarkan ID
+          const user = await User.findByPk(userId);
 
-    // ... (kode lainnya)
+          if (!user) {
+              throw new Error('Pengguna tidak ditemukan');
+          }
+
+          // Hapus pengguna
+          await user.destroy();
+          
+
+          return { message: "Pengguna berhasil dihapus." };
+      } catch (error) {
+          //console.error('Error saat menghapus pengguna:', error);
+          throw error;
+      }
+  }
+
+
 }
 
 module.exports = UserService;

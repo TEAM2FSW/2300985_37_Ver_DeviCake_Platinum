@@ -21,8 +21,8 @@ describe("Unit Testing : user.service.js", () => {
         const user = await userService.createUser(registerDataMock);
         expect(user).toBeDefined();
         expect(user.email).toBe(registerDataMock.email);
-        // Hapus user yang baru dibuat
-        await userService.deleteUser(user.user_id);
+         // Hapus user yang baru dibuat
+         await userService.deleteUserPermanen(user.user_id);
     });
 
     it("[-] Register User to DB - Fail (Email Exists)", async () => {

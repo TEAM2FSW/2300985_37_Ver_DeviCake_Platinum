@@ -1,6 +1,6 @@
 module.exports = {
     registerDataMock : {
-        email: "ersancakra111@gmail.com",
+        email: "ersancakra99999@gmail.com",
         password: "admin",
         full_name: "Ersan Putra N",
         phone_number: "1234567890",
@@ -14,11 +14,11 @@ module.exports = {
         profile_image: "http://example.com/profile.jpg"
     },
     loginGagalDataMock : {
-        email: "ersan@gmail.com",
+        email: "ersanccc@gmail.com",
         password: "admin"
     },
     loginDataMock : {
-        email: "ersancakra10@gmail.com",
+        email: "admin@ersanputra.com",
         password: "admin"
     },
     addAddressMock: {
